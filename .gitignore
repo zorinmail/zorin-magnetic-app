@@ -1,0 +1,6 @@
+dash-venv
+*.pyc
+.DS_Store
+.env
+.idea
+apptwo.py

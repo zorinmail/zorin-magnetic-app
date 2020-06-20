@@ -246,7 +246,7 @@ app.layout = html.Div(
         ], style = {'padding': '15px 0 0 30px','display':'flex', 'justify-content': 'center'}),
 
         html.Div([
-            html.Button('OK', id='main_button',
+            html.Button('Prepare', id='main_button',
                         style={'margin': 'auto',
                                'display': 'inline-block',
                                'background-color': 'green',

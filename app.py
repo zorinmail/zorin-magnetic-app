@@ -30,6 +30,35 @@ app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 app.layout = html.Div(
     [
         html.Div([
+            dcc.Dropdown(
+                id='month_id',
+                options=[
+                    {'label': '1', 'value': 1},
+                    {'label': '2', 'value': 2},
+                    {'label': '3', 'value': 3},
+                    {'label': '4', 'value': 4},
+                    {'label': '5', 'value': 5},
+                    {'label': '6', 'value': 6},
+                    {'label': '7', 'value': 7},
+                    {'label': '8', 'value': 8},
+                    {'label': '9', 'value': 9},
+                    {'label': '10', 'value': 10},
+                    {'label': '11', 'value': 11},
+                    {'label': '12', 'value': 12},
+                ],
+                value=1
+            ),
+        ], style = {'margin': '0 10px 0 10px', 'width': '100px'}),
+        html.Div([
+            html.Button('Fill month to DB', id='button_fill_month_to_db',
+                        style={'font-weight': '700', 'font-size': '10px'}),
+        ], style={'text-align': 'center', 'margin-top': '5px'}),
+        html.Div([
+            html.H5(id = 'state_filling_db', children = '0', style={'text-align': 'center'}),
+        ]),
+
+
+        html.Div([
             html.H1(children = 'Параметры магнитного поля Земли', style = {'margin-bottom': '10px'}),
         ], style = {'text-align': 'center'}),
 
@@ -276,6 +305,24 @@ app.layout = html.Div(
 
 
 
+
+
+
+
+@app.callback(
+    [Output("state_filling_db", "children")],
+    [Input(component_id='button_fill_month_to_db', component_property='n_clicks')],
+    [State('month_id', 'value')]
+)
+def choose_all(n_clicks, month):
+    if n_clicks > 0:
+        text = str(month) + ' месяц заполнен'
+        return text
+
+
+
+
+# функция для выбора всех индексов
 @app.callback(
     [Output("checkbox_1", "value"),
      Output("checkbox_2", "value"),
@@ -306,7 +353,7 @@ def choose_all(n_clicks):
 
 
 
-
+# функция для передачи параметров запроса в model
 @app.callback(
     [Output("output_div", "children"),
      Output("download-link", "href"),],

@@ -11,6 +11,7 @@ from dash.exceptions import PreventUpdate
 import io
 import pandas as pd
 import model
+import temp_with_postgre
 import openpyxl
 
 
@@ -311,6 +312,7 @@ def choose_all(n_clicks, month):
     if n_clicks is None:
         text = ['0']
     else:
+        temp_with_postgre.mainFunction(month)
         text = [str(month) + ' месяц заполнен']
     return text
 

@@ -11,13 +11,23 @@ from psycopg2.extensions import AsIs
 import sqlalchemy
 
 
-engine = sqlalchemy.create_engine("postgresql+psycopg2://postgres:admin@localhost:5432/indices")
-engine_two = sqlalchemy.create_engine("postgresql+psycopg2://postgres:admin@localhost:5432/gindices")
 
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-# папка с данными по кварталам
-initial_dirname = os.path.join(PROJECT_PATH, 'initial_month')
-_path = os.path.join(initial_dirname, '1.csv')
+pg_user = 'axtwbbjtiajlqn'
+pg_pass = 'b08a23d4e8da8bb01e89b5c02e29fa7b959a3a91be994ac1e7ec0c20fb322615'
+pg_host = 'ec2-34-230-231-71.compute-1.amazonaws.com'
+pg_port = '5432'
+pg_dbname = 'de51bdao4jre75'
+
+connection_string = 'postgresql+psycopg2://' + pg_user + ':' + pg_pass + '@' + pg_host + ':' + pg_port + '/' + pg_dbname
+
+
+engine = sqlalchemy.create_engine(connection_string)
+# engine_two = sqlalchemy.create_engine("postgresql+psycopg2://postgres:admin@localhost:5432/gindices")
+
+# PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
+# папка с данными по месяцам
+# initial_dirname = os.path.join(PROJECT_PATH, 'initial')
 
 # усреднение по времени
 def time_selection(df, timestep):
@@ -28,66 +38,65 @@ def time_selection(df, timestep):
     # dfff['DATETIME'] = dff.index
     return dfff
 
-a=0
-# наполнение postgre данными. TODO автоматизировать
-for number in [1,2,3,4,5,6,7,8,9,10,11,12]:
-    filename = str(number) + '.csv'
+def mainFunction(month):
+    filename = str(month) + '.csv'
+    PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+    initial_dirname = os.path.join(PROJECT_PATH, 'initial')
     _path = os.path.join(initial_dirname, filename)
-    d = pd.read_csv(_path, ';') #csv в dataframe
+    d = pd.read_csv(_path, ';')  # csv в dataframe
     d['datetime'] = pd.to_datetime(d['datetime'], format='%Y-%m-%d' + ' ' + '%H:%M:%S')
-    df = time_selection(d, '1H')
-    df.to_sql('indices', engine_two, if_exists='append') #dataframe в postgre
-
-a=0
-
-
-# создание sql-запроса
-def create_sql_query(date_begin, time_begin, date_end, time_end, sought_info: list):
-    datetime_begin = date_begin + ' ' + time_begin
-    datetime_end = date_end + ' ' + time_end
-    cols = (', '.join(sought_info)).lower()
-    sqlquery = "select datetime, " + cols + " from tabs where datetime between " + "'" + datetime_begin + "'" + " and " + "'" +  datetime_end + "'" + " order by datetime"
-    return sqlquery
+    d = time_selection(d, '1H')
+    d.to_sql('indices', engine, if_exists='append')  # dataframe в postgre
 
 
 
-
-# запрос-заплатка
-sought_info = ['ae','au','al','ao',
-               'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
-               'pcn','pcs',
-               'sme',
-               'asy_d', 'asy_h', 'sym_d', 'sym_h']
-# sought_info = ['AE_ie', 'SYM-D']
-date_begin = '2015-01-01'
-time_begin = '00:00:00'
-date_end = '2015-01-02'
-time_end = '23:59:00'
-time_step = '10S'
-
-
-start_time = datetime.datetime.now()
-sqlquery= create_sql_query(date_begin, time_begin, date_end, time_end, sought_info)
-df = pd.read_sql_query(sqlquery, con=engine)
-str_time = str(datetime.datetime.now() - start_time)
-print('1: ' + str_time)
-df = time_selection(df, time_step)
-str_time = str(datetime.datetime.now() - start_time)
-print('2: ' + str_time)
-relative_filename = os.path.join(
-    'files',
-    'file1' + '.xlsx'
-)
-absolute_filename = os.path.join(os.getcwd(), relative_filename)
-writer = pd.ExcelWriter(absolute_filename)
-str_time = str(datetime.datetime.now() - start_time)
-print('3: ' + str_time)
-df.to_excel(writer, 'Sheet1')
-str_time = str(datetime.datetime.now() - start_time)
-print('4: ' + str_time)
-writer.save()
-str_time = str(datetime.datetime.now() - start_time)
-print('5: ' + str_time)
+# # создание sql-запроса
+# def create_sql_query(date_begin, time_begin, date_end, time_end, sought_info: list):
+#     datetime_begin = date_begin + ' ' + time_begin
+#     datetime_end = date_end + ' ' + time_end
+#     cols = (', '.join(sought_info)).lower()
+#     sqlquery = "select datetime, " + cols + " from tabs where datetime between " + "'" + datetime_begin + "'" + " and " + "'" +  datetime_end + "'" + " order by datetime"
+#     return sqlquery
+#
+#
+#
+#
+# # запрос-заплатка
+# sought_info = ['ae','au','al','ao',
+#                'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
+#                'pcn','pcs',
+#                'sme',
+#                'asy_d', 'asy_h', 'sym_d', 'sym_h']
+# # sought_info = ['AE_ie', 'SYM-D']
+# date_begin = '2015-01-01'
+# time_begin = '00:00:00'
+# date_end = '2015-01-02'
+# time_end = '23:59:00'
+# time_step = '10S'
+#
+#
+# start_time = datetime.datetime.now()
+# sqlquery= create_sql_query(date_begin, time_begin, date_end, time_end, sought_info)
+# df = pd.read_sql_query(sqlquery, con=engine)
+# str_time = str(datetime.datetime.now() - start_time)
+# print('1: ' + str_time)
+# df = time_selection(df, time_step)
+# str_time = str(datetime.datetime.now() - start_time)
+# print('2: ' + str_time)
+# relative_filename = os.path.join(
+#     'files',
+#     'file1' + '.xlsx'
+# )
+# absolute_filename = os.path.join(os.getcwd(), relative_filename)
+# writer = pd.ExcelWriter(absolute_filename)
+# str_time = str(datetime.datetime.now() - start_time)
+# print('3: ' + str_time)
+# df.to_excel(writer, 'Sheet1')
+# str_time = str(datetime.datetime.now() - start_time)
+# print('4: ' + str_time)
+# writer.save()
+# str_time = str(datetime.datetime.now() - start_time)
+# print('5: ' + str_time)
 
 
 

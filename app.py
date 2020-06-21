@@ -311,8 +311,8 @@ app.layout = html.Div(
 
 @app.callback(
     [Output("state_filling_db", "children")],
-    [Input(component_id='button_fill_month_to_db', component_property='n_clicks')],
-    [State('month_id', 'value')]
+    [Input(component_id='button_fill_month_to_db', component_property='n_clicks'),
+     Input('month_id', 'value')]
 )
 def choose_all(n_clicks, month):
     if n_clicks is not None:

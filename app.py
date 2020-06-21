@@ -10,7 +10,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import io
 import pandas as pd
-import my_script
+import model
 import openpyxl
 
 
@@ -348,7 +348,7 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
             return 'Не выбраны параметры поля!', '#'
         else:
             try:
-                b = my_script.main_function(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+                b = model.main_function(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
                 relative_filename = os.path.join(
                     'created_csv',

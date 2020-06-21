@@ -147,7 +147,7 @@ app.layout = html.Div(
                     {'label': '12 h', 'value': '12H'},
                     {'label': '1 day', 'value': '1D'},
                 ],
-                value='900S'
+                value='1H'
             ),
             ], style = {'margin': 'auto', 'width': '100px'}
         ),
@@ -170,10 +170,10 @@ app.layout = html.Div(
                     id='checkbox_1',
                     inputClassName ='checkbox_1',
                     options=[
-                        {'label': 'AE', 'value': 'AE'},
-                        {'label': 'AU', 'value': 'AU'},
-                        {'label': 'AL', 'value': 'AL'},
-                        {'label': 'AO', 'value': 'AO'},
+                        {'label': 'AE', 'value': 'ae'},
+                        {'label': 'AU', 'value': 'au'},
+                        {'label': 'AL', 'value': 'al'},
+                        {'label': 'AO', 'value': 'ao'},
                     ],
                     value=[]
                 ),
@@ -184,8 +184,8 @@ app.layout = html.Div(
                     id='checkbox_2',
                     inputClassName='checkbox_2',
                     options=[
-                        {'label': 'PCN', 'value': 'PCN'},
-                        {'label': 'PCS', 'value': 'PCS'},
+                        {'label': 'PCN', 'value': 'pcn'},
+                        {'label': 'PCS', 'value': 'pcs'},
                     ],
                     value=[]
                 ),
@@ -196,7 +196,7 @@ app.layout = html.Div(
                     id='checkbox_3',
                     inputClassName='checkbox_3',
                     options=[
-                        {'label': 'SME', 'value': 'SME'},
+                        {'label': 'SME', 'value': 'sme'},
                     ],
                     value=[]
                 ),
@@ -207,10 +207,10 @@ app.layout = html.Div(
                     id='checkbox_4',
                     inputClassName='checkbox_4',
                     options=[
-                        {'label': 'ASY-D', 'value': 'ASY-D'},
-                        {'label': 'ASY-H', 'value': 'ASY-H'},
-                        {'label': 'SYM-D', 'value': 'SYM-D'},
-                        {'label': 'SYM-H', 'value': 'SYM-H'},
+                        {'label': 'ASY-D', 'value': 'asy_d'},
+                        {'label': 'ASY-H', 'value': 'asy_h'},
+                        {'label': 'SYM-D', 'value': 'sym_d'},
+                        {'label': 'SYM-H', 'value': 'sym_h'},
                     ],
                     value=[]
                 ),
@@ -221,9 +221,9 @@ app.layout = html.Div(
                     id='checkbox_5',
                     inputClassName='checkbox_5',
                     options=[
-                        {'label': 'AL-ie', 'value': 'AL-ie'},
-                        {'label': 'AU-ie', 'value': 'AU-ie'},
-                        {'label': 'AE-ie', 'value': 'AE-ie'},
+                        {'label': 'AL (ie)', 'value': 'al_ie'},
+                        {'label': 'AU (ie)', 'value': 'au_ie'},
+                        {'label': 'AE (ie)', 'value': 'ae_ie'},
                     ],
                     value=[]
                 ),
@@ -234,12 +234,12 @@ app.layout = html.Div(
                     id='checkbox_6',
                     inputClassName='checkbox_6',
                     options=[
-                        {'label': 'Middle Latitude A', 'value': 'Middle Latitude A'},
-                        {'label': 'Middle Latitude K-indices', 'value': 'Middle Latitude K-indices'},
-                        {'label': 'High Latitude A', 'value': 'High Latitude A'},
-                        {'label': 'High Latitude K-indices', 'value': 'High Latitude K-indices'},
-                        {'label': 'Estimated A', 'value': 'Estimated A'},
-                        {'label': 'Estimated K-indices', 'value': 'Estimated K-indices'},
+                        {'label': 'Middle Latitude A', 'value': 'middle_latitude_a'},
+                        {'label': 'Middle Latitude K-indices', 'value': 'middle_latitude_k_indices'},
+                        {'label': 'High Latitude A', 'value': 'high_latitude_a'},
+                        {'label': 'High Latitude K-indices', 'value': 'high_latitude_k_indices'},
+                        {'label': 'Estimated A', 'value': 'estimated_a'},
+                        {'label': 'Estimated K-indices', 'value': 'estimated_k_indices'},
                     ],
                     value=[]
                 ),
@@ -275,7 +275,6 @@ app.layout = html.Div(
     }
 )
 
-
 # функция для наполнения БД
 # @app.callback(
 #     [Output('state_filling_db', 'children')],
@@ -289,8 +288,6 @@ app.layout = html.Div(
 #         temp_with_postgre.mainFunction(month)
 #         text = [str(month) + ' месяц заполнен']
 #     return text
-
-
 
 
 # функция для выбора всех индексов
@@ -345,14 +342,6 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
                   sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
 
-    # rqst.clear()
-    # rqst.update({'date_begin': str(date_begin)})
-    # rqst.update({'time_begin': str(time_begin)+':00'})
-    # rqst.update({'date_end': str(date_end)})
-    # rqst.update({'time_end': str(time_end)+':00'})
-    # rqst.update({'time_step': str(time_step)})
-    # rqst.update({'sought_info': sought_info})
-
     if n_clicks is None:
         raise PreventUpdate
     else:
@@ -366,7 +355,7 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
             return 'Не выбраны параметры поля!', '#'
         else:
             try:
-                b = model.main_function(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+                b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
                 relative_filename = os.path.join(
                     'created_csv',

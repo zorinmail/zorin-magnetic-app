@@ -303,7 +303,7 @@ app.layout = html.Div(
 
 
 @app.callback(
-    [Output('state_filling_db', 'children')],
+    Output('state_filling_db', 'children'),
     [Input(component_id='button_fill_month_to_db', component_property='n_clicks'),
      Input(component_id='month_id', component_property='value')]
 )

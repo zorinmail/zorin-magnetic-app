@@ -18,7 +18,7 @@ engine = sqlalchemy.create_engine(connection_string)
 def time_selection(df, timestep):
     rule = timestep
     df['datetime'] = pd.to_datetime(df['datetime'], format='%Y-%m-%d' + ' ' + '%H:%M:%S')
-    dff = df.resample(rule, on='DATETIME').mean()
+    dff = df.resample(rule, on='datetime').mean()
     dfff = dff.round(1)
     # dfff['DATETIME'] = dff.index
     return dfff

@@ -302,117 +302,117 @@ app.layout = html.Div(
 
 
 
-@app.callback(
-    [Output('state_filling_db', 'children')],
-    [Input('button_fill_month_to_db', 'n_clicks')],
-    [State('month_id', 'value')]
-)
-def choose_all(n_clicks, month):
-    if n_clicks is None:
-        text = '0'
-    else:
-        text = str(month) + ' месяц заполнен'
-    return text
-
-
-
-#
-# # функция для выбора всех индексов
 # @app.callback(
-#     [Output("checkbox_1", "value"),
-#      Output("checkbox_2", "value"),
-#      Output("checkbox_3", "value"),
-#      Output("checkbox_4", "value"),
-#      Output("checkbox_5", "value"),
-#      Output("checkbox_6", "value"),],
-#     [Input(component_id='choose_all', component_property='n_clicks')],
+#     [Output('state_filling_db', 'children')],
+#     [Input('button_fill_month_to_db', 'n_clicks')],
+#     [State('month_id', 'value')]
 # )
-# def choose_all(n_clicks):
-#     if n_clicks is None or n_clicks%2 == 0:
-#         cb1_val = []
-#         cb2_val = []
-#         cb3_val = []
-#         cb4_val = []
-#         cb5_val = []
-#         cb6_val = []
-#         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
-#     else:
-#         cb1_val = ['AE','AU','AL','AO']
-#         cb2_val = ['PCN', 'PCS']
-#         cb3_val = ['SME']
-#         cb4_val = ['ASY-D', 'ASY-H', 'SYM-D', 'SYM-H']
-#         cb5_val = ['AL-ie', 'AU-ie', 'AE-ie']
-#         cb6_val = ['Middle Latitude A', 'Middle Latitude K-indices', 'High Latitude A', 'High Latitude K-indices', 'Estimated A', 'Estimated K-indices']
-#         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
-#
-#
-#
-#
-# # функция для передачи параметров запроса в model
-# @app.callback(
-#     [Output("output_div", "children"),
-#      Output("download-link", "href"),],
-#     [Input(component_id='main_button', component_property='n_clicks')],
-#     [State('my-date-picker-range', 'start_date'),
-#      State('my-date-picker-range', 'end_date'),
-#      State('start_time', 'value'),
-#      State('end_time', 'value'),
-#      State('time_step', 'value'),
-#      State('checkbox_1', 'value'),
-#      State('checkbox_2', 'value'),
-#      State('checkbox_3', 'value'),
-#      State('checkbox_4', 'value'),
-#      State('checkbox_5', 'value'),
-#      State('checkbox_6', 'value')]
-# )
-# def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_step,
-#                   sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
-#     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
-#
-#     # rqst.clear()
-#     # rqst.update({'date_begin': str(date_begin)})
-#     # rqst.update({'time_begin': str(time_begin)+':00'})
-#     # rqst.update({'date_end': str(date_end)})
-#     # rqst.update({'time_end': str(time_end)+':00'})
-#     # rqst.update({'time_step': str(time_step)})
-#     # rqst.update({'sought_info': sought_info})
-#
+# def choose_all(n_clicks, month):
 #     if n_clicks is None:
-#         raise PreventUpdate
+#         text = '0'
 #     else:
-#         if date_begin is None or date_end is None:
-#             return 'Не введены даты!', '#'
-#         elif time_begin is None or time_end is None:
-#             return 'Не введены диапазоны времени!', '#'
-#         elif time_step is None:
-#             return 'Не введен шаг времени!', '#'
-#         elif len(sought_info) == 0:
-#             return 'Не выбраны параметры поля!', '#'
-#         else:
-#             try:
-#                 b = model.main_function(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
-#
-#                 relative_filename = os.path.join(
-#                     'created_csv',
-#                     'file.xlsx'
-#                 )
-#                 absolute_filename = os.path.join(os.getcwd(), relative_filename)
-#                 writer = pd.ExcelWriter(absolute_filename)
-#                 b.to_excel(writer, 'Sheet1')
-#                 writer.save()
-#
-#                 return '', '/{}'.format(relative_filename)
-#             except MemoryError:
-#                 return 'Недостаточно памяти. Попробуйте выбрать меньший диапазон времени', '#'
-#
-#
-#
-# @app.server.route('/created_csv/<path:path>')
-# def my_serve_static(path):
-#     root_dir = os.getcwd()
-#     return flask.send_from_directory(
-#         os.path.join(root_dir, 'created_csv'), path
-#     )
+#         text = str(month) + ' месяц заполнен'
+#     return text
+
+
+
+
+# функция для выбора всех индексов
+@app.callback(
+    [Output("checkbox_1", "value"),
+     Output("checkbox_2", "value"),
+     Output("checkbox_3", "value"),
+     Output("checkbox_4", "value"),
+     Output("checkbox_5", "value"),
+     Output("checkbox_6", "value"),],
+    [Input(component_id='choose_all', component_property='n_clicks')],
+)
+def choose_all(n_clicks):
+    if n_clicks is None or n_clicks%2 == 0:
+        cb1_val = []
+        cb2_val = []
+        cb3_val = []
+        cb4_val = []
+        cb5_val = []
+        cb6_val = []
+        return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
+    else:
+        cb1_val = ['AE','AU','AL','AO']
+        cb2_val = ['PCN', 'PCS']
+        cb3_val = ['SME']
+        cb4_val = ['ASY-D', 'ASY-H', 'SYM-D', 'SYM-H']
+        cb5_val = ['AL-ie', 'AU-ie', 'AE-ie']
+        cb6_val = ['Middle Latitude A', 'Middle Latitude K-indices', 'High Latitude A', 'High Latitude K-indices', 'Estimated A', 'Estimated K-indices']
+        return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
+
+
+
+
+# функция для передачи параметров запроса в model
+@app.callback(
+    [Output("output_div", "children"),
+     Output("download-link", "href"),],
+    [Input(component_id='main_button', component_property='n_clicks')],
+    [State('my-date-picker-range', 'start_date'),
+     State('my-date-picker-range', 'end_date'),
+     State('start_time', 'value'),
+     State('end_time', 'value'),
+     State('time_step', 'value'),
+     State('checkbox_1', 'value'),
+     State('checkbox_2', 'value'),
+     State('checkbox_3', 'value'),
+     State('checkbox_4', 'value'),
+     State('checkbox_5', 'value'),
+     State('checkbox_6', 'value')]
+)
+def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_step,
+                  sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
+    sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
+
+    # rqst.clear()
+    # rqst.update({'date_begin': str(date_begin)})
+    # rqst.update({'time_begin': str(time_begin)+':00'})
+    # rqst.update({'date_end': str(date_end)})
+    # rqst.update({'time_end': str(time_end)+':00'})
+    # rqst.update({'time_step': str(time_step)})
+    # rqst.update({'sought_info': sought_info})
+
+    if n_clicks is None:
+        raise PreventUpdate
+    else:
+        if date_begin is None or date_end is None:
+            return 'Не введены даты!', '#'
+        elif time_begin is None or time_end is None:
+            return 'Не введены диапазоны времени!', '#'
+        elif time_step is None:
+            return 'Не введен шаг времени!', '#'
+        elif len(sought_info) == 0:
+            return 'Не выбраны параметры поля!', '#'
+        else:
+            try:
+                b = model.main_function(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+
+                relative_filename = os.path.join(
+                    'created_csv',
+                    'file.xlsx'
+                )
+                absolute_filename = os.path.join(os.getcwd(), relative_filename)
+                writer = pd.ExcelWriter(absolute_filename)
+                b.to_excel(writer, 'Sheet1')
+                writer.save()
+
+                return '', '/{}'.format(relative_filename)
+            except MemoryError:
+                return 'Недостаточно памяти. Попробуйте выбрать меньший диапазон времени', '#'
+
+
+
+@app.server.route('/created_csv/<path:path>')
+def my_serve_static(path):
+    root_dir = os.getcwd()
+    return flask.send_from_directory(
+        os.path.join(root_dir, 'created_csv'), path
+    )
 
 
 if __name__ == '__main__':

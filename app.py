@@ -310,12 +310,12 @@ def choose_all(n_clicks):
         cb6_val = []
         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
     else:
-        cb1_val = ['AE','AU','AL','AO']
-        cb2_val = ['PCN', 'PCS']
-        cb3_val = ['SME']
-        cb4_val = ['ASY-D', 'ASY-H', 'SYM-D', 'SYM-H']
-        cb5_val = ['AL-ie', 'AU-ie', 'AE-ie']
-        cb6_val = ['Middle Latitude A', 'Middle Latitude K-indices', 'High Latitude A', 'High Latitude K-indices', 'Estimated A', 'Estimated K-indices']
+        cb1_val = ['ae','au','al','ao']
+        cb2_val = ['pcn', 'pcs']
+        cb3_val = ['sme']
+        cb4_val = ['asy_d', 'asy_h', 'sym_d', 'sym_h']
+        cb5_val = ['al_ie', 'au_ie', 'ae_ie']
+        cb6_val = ['middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices']
         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
 
 

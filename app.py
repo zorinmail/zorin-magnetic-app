@@ -30,32 +30,25 @@ app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 app.layout = html.Div(
     [
         html.Div([
-            dcc.Dropdown(
-                id='month_id',
-                options=[
-                    {'label': '1', 'value': 1},
-                    {'label': '2', 'value': 2},
-                    {'label': '3', 'value': 3},
-                    {'label': '4', 'value': 4},
-                    {'label': '5', 'value': 5},
-                    {'label': '6', 'value': 6},
-                    {'label': '7', 'value': 7},
-                    {'label': '8', 'value': 8},
-                    {'label': '9', 'value': 9},
-                    {'label': '10', 'value': 10},
-                    {'label': '11', 'value': 11},
-                    {'label': '12', 'value': 12},
-                ],
-                value=1
-            ),
-        ], style = {'margin': '0 10px 0 10px', 'width': '100px'}),
-        html.Div([
-            html.Button('Fill month to DB', id='button_fill_month_to_db',
-                        style={'font-weight': '700', 'font-size': '10px'}),
-        ], style={'text-align': 'center', 'margin-top': '5px'}),
-        html.Div([
-            html.H5(id = 'state_filling_db', children = '0', style={'text-align': 'center'}),
+
+            html.Div([
+                dcc.Input(
+                    id='month_id',
+                    type= 'number',
+                    placeholder= 'номер месяца',
+                ),
+            ], style={'text-align': 'center', 'margin-top': '5px'}),
+
+            html.Div([
+                html.Button('Fill month to DB', id='button_fill_month_to_db',
+                            style={'font-weight': '700', 'font-size': '10px'}),
+            ], style={'text-align': 'center', 'margin-top': '5px'}),
+
+            html.Div([
+                html.H5(id = 'state_filling_db', children = '0', style={'text-align': 'center'}),
+            ]),
         ]),
+
 
 
         html.Div([
@@ -310,9 +303,9 @@ app.layout = html.Div(
 
 
 @app.callback(
-    [Output("state_filling_db", "children")],
+    [Output('state_filling_db', 'children')],
     [Input(component_id='button_fill_month_to_db', component_property='n_clicks'),
-     Input('month_id', 'value')]
+     Input(component_id='month_id', component_property='value')]
 )
 def choose_all(n_clicks, month):
     if n_clicks is not None:

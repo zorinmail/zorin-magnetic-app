@@ -309,9 +309,9 @@ app.layout = html.Div(
 )
 def choose_all(n_clicks, month):
     if n_clicks is None:
-        text = '0'
+        text = ['0']
     else:
-        text = str(month) + ' месяц заполнен'
+        text = [str(month) + ' месяц заполнен']
     return text
 
 

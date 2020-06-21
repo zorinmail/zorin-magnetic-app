@@ -315,9 +315,11 @@ app.layout = html.Div(
     [State('month_id', 'value')]
 )
 def choose_all(n_clicks, month):
-    if n_clicks > 0:
+    if n_clicks is not None:
         text = str(month) + ' месяц заполнен'
-        return text
+    else:
+        text='0'
+    return text
 
 
 

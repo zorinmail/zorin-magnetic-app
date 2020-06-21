@@ -11,7 +11,7 @@ from dash.exceptions import PreventUpdate
 import io
 import pandas as pd
 import model
-import temp_with_postgre
+# import temp_with_postgre
 import openpyxl
 
 
@@ -30,28 +30,6 @@ app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     [
-        html.Div([
-
-            html.Div([
-                dcc.Input(
-                    id='month_id',
-                    type= 'number',
-                    placeholder= 'номер месяца',
-                ),
-            ], style={'text-align': 'center', 'margin-top': '5px'}),
-
-            html.Div([
-                html.Button('Fill month to DB', id='button_fill_month_to_db',
-                            style={'font-weight': '700', 'font-size': '10px'}),
-            ], style={'text-align': 'center', 'margin-top': '5px'}),
-
-            html.Div([
-                html.H5(id = 'state_filling_db', children = '0', style={'text-align': 'center'}),
-            ]),
-        ]),
-
-
-
         html.Div([
             html.H1(children = 'Параметры магнитного поля Земли', style = {'margin-bottom': '10px'}),
         ], style = {'text-align': 'center'}),
@@ -157,12 +135,12 @@ app.layout = html.Div(
             dcc.Dropdown(
                 id='time_step',
                 options=[
-                    {'label': '10 sec', 'value': '10S'},
-                    {'label': '1 min', 'value': '60S'},
-                    {'label': '5 min', 'value': '300S'},
-                    {'label': '10 min', 'value': '600S'},
-                    {'label': '15 min', 'value': '900S'},
-                    {'label': '30 min', 'value': '1800S'},
+                    {'label': '10 sec', 'value': '10S', 'disabled': True},
+                    {'label': '1 min', 'value': '60S', 'disabled': True},
+                    {'label': '5 min', 'value': '300S', 'disabled': True},
+                    {'label': '10 min', 'value': '600S', 'disabled': True},
+                    {'label': '15 min', 'value': '900S', 'disabled': True},
+                    {'label': '30 min', 'value': '1800S', 'disabled': True},
                     {'label': '1 h', 'value': '1H'},
                     {'label': '2 h', 'value': '2H'},
                     {'label': '6 h', 'value': '6H'},
@@ -298,23 +276,19 @@ app.layout = html.Div(
 )
 
 
-
-
-
-
-
-@app.callback(
-    [Output('state_filling_db', 'children')],
-    [Input('button_fill_month_to_db', 'n_clicks')],
-    [State('month_id', 'value')]
-)
-def choose_all(n_clicks, month):
-    if n_clicks is None:
-        text = ['0']
-    else:
-        temp_with_postgre.mainFunction(month)
-        text = [str(month) + ' месяц заполнен']
-    return text
+# функция для наполнения БД
+# @app.callback(
+#     [Output('state_filling_db', 'children')],
+#     [Input('button_fill_month_to_db', 'n_clicks')],
+#     [State('month_id', 'value')]
+# )
+# def choose_all(n_clicks, month):
+#     if n_clicks is None:
+#         text = ['0']
+#     else:
+#         temp_with_postgre.mainFunction(month)
+#         text = [str(month) + ' месяц заполнен']
+#     return text
 
 
 

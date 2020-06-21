@@ -302,17 +302,17 @@ app.layout = html.Div(
 
 
 
-# @app.callback(
-#     [Output('state_filling_db', 'children')],
-#     [Input('button_fill_month_to_db', 'n_clicks')],
-#     [State('month_id', 'value')]
-# )
-# def choose_all(n_clicks, month):
-#     if n_clicks is None:
-#         text = '0'
-#     else:
-#         text = str(month) + ' месяц заполнен'
-#     return text
+@app.callback(
+    [Output('state_filling_db', 'children')],
+    [Input('button_fill_month_to_db', 'n_clicks')],
+    [State('month_id', 'value')]
+)
+def choose_all(n_clicks, month):
+    if n_clicks is None:
+        text = '0'
+    else:
+        text = str(month) + ' месяц заполнен'
+    return text
 
 
 

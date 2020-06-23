@@ -31,7 +31,7 @@ app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 app.layout = html.Div(
     [
         html.Div([
-            html.H1(children = 'Параметры магнитного поля Земли', style = {'margin-bottom': '10px'}),
+            html.H1(children = 'Индексы геомагнитной активности', style = {'margin-bottom': '10px'}),
         ], style = {'text-align': 'center'}),
 
         html.Div([

@@ -28,6 +28,11 @@ server = Flask(__name__)
 app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 
 
+
+app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
+
+
+
 app.layout = html.Div(
     [
 

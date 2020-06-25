@@ -388,7 +388,7 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                                 'size': 15,
                                 'line': {'width': 0.5, 'color': 'white'}
                             },
-                            name=i
+                            name=str(i)
                         ) for i in df.index.unique()
                     ]
 

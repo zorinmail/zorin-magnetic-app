@@ -17,9 +17,9 @@ import model
 import openpyxl
 
 
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css']
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-external_stylesheets=[dbc.themes.BOOTSTRAP]
+# external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 sizes = {
     'container-div': '800px',

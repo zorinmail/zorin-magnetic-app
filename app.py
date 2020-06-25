@@ -459,7 +459,7 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
                 writer.save()
 
                 flask.send_from_directory(
-                    os.path.join(absolute_filename), 'file.xlsx'
+                    os.path.join(os.getcwd(), 'created_csv'), 'file.xlsx', as_attachment=True
                 )
 
                 return '', '/{}'.format(relative_filename)

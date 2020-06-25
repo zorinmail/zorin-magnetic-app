@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from datetime import timezone
 import os
 import flask
 from flask import Flask, send_from_directory
@@ -450,9 +451,11 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
             try:
                 b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
+                now=dt.now(timezone.utc)
+                now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
                 relative_filename = os.path.join(
                     'created_csv',
-                    'file.xlsx'
+                    'file_' + now_str + '.xlsx'
                 )
                 absolute_filename = os.path.join(os.getcwd(), relative_filename)
                 writer = pd.ExcelWriter(absolute_filename)

@@ -376,22 +376,15 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                 try:
                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
-                    data = [
-                        dict(
-                            x=df[df['datetime'] == i]['datetime'],
-                            y=df[df['datetime'] == i][list(df.columns)],
-                            #text=df[df['datetime'] == i][list(df.columns)],
-                            mode='markers',
-                            opacity=0.7,
-                            marker={
-                                'size': 15,
-                                'line': {'width': 0.5, 'color': 'white'}
-                            },
-                            name=i
-                        ) for i in df.datetime.unique()
-                    ],
-
-
+                    data = []
+                    for i in sought_info:
+                        temp = {
+                            "x": df["datetime"],
+                            "y": df[i],
+                            "name": "Successful",
+                            "type": "line",
+                        }
+                        data.append(temp)
 
                     layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
                     return go.Figure(data=data, layout=layout)

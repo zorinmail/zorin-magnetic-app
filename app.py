@@ -352,7 +352,7 @@ def choose_all(n_clicks):
 
 # функция для графика
 @app.callback(
-    [Output("cluster-graph", "figure")],
+    Output("cluster-graph", "figure"),
     [Input('my-date-picker-range', 'start_date'),
      Input('my-date-picker-range', 'end_date'),
      Input('start_time', 'value'),

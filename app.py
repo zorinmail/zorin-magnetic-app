@@ -6,6 +6,7 @@ import xlsxwriter
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
+import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import io
@@ -15,9 +16,9 @@ import model
 import openpyxl
 
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css']
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css']
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
+external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 sizes = {
     'container-div': '800px',

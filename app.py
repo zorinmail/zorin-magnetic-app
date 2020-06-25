@@ -377,19 +377,20 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
                     data = []
                     for each in sought_info:
-                        data.append(dict(
-                                x=df[df.index == i]['datetime'],
-                                # x = i,
-                                y = df[df.index == i][str(each)],
-                                text=df[df.index == i][str(each)],
-                                mode='markers',
-                                opacity=0.7,
-                                marker={
-                                    'size': 15,
-                                    'line': {'width': 0.5, 'color': 'white'}
-                                },
-                                name=str(i)
-                            ) for i in df.index.unique())
+                        data_to_append = [dict(
+                            x=df[df.index == i]['datetime'],
+                            # x = i,
+                            y=df[df.index == i][str(each)],
+                            text=df[df.index == i][str(each)],
+                            mode='markers',
+                            opacity=0.7,
+                            marker={
+                                'size': 15,
+                                'line': {'width': 0.5, 'color': 'white'}
+                            },
+                            name=str(i)
+                        ) for i in df.index.unique()]
+                        data.append(data_to_append)
 
 
                     layout = dict(

@@ -263,9 +263,9 @@ controls = dbc.Card(
         html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
         html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
                  children=[html.A(
-                     'Download Data',
+                     '',
                      id='download-link',
-                     download="data.xlsx",
+                     # download="data.xlsx",
                      href="#",
                      target="_blank"
                  )]
@@ -416,7 +416,8 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
 # функция для передачи параметров запроса в model
 @app.callback(
     [Output("output_div", "children"),
-     Output("download-link", "href"),],
+     Output("download-link", "href"),
+     Output("download-link", "children"),],
     [Input(component_id='main_button', component_property='n_clicks')],
     [State('my-date-picker-range', 'start_date'),
      State('my-date-picker-range', 'end_date'),
@@ -438,13 +439,13 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
         raise PreventUpdate
     else:
         if date_begin is None or date_end is None:
-            return 'Не введены даты!', '#'
+            return 'Не введены даты!', '#', ''
         elif time_begin is None or time_end is None:
-            return 'Не введены диапазоны времени!', '#'
+            return 'Не введены диапазоны времени!', '#', ''
         elif time_step is None:
-            return 'Не введен шаг времени!', '#'
+            return 'Не введен шаг времени!', '#', ''
         elif len(sought_info) == 0:
-            return 'Не выбраны параметры поля!', '#'
+            return 'Не выбраны параметры поля!', '#', ''
         else:
             try:
                 b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
@@ -458,13 +459,9 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
                 b.to_excel(writer, 'Sheet1')
                 writer.save()
 
-                flask.send_from_directory(
-                    os.path.join(os.getcwd(), 'created_csv'), 'file.xlsx', as_attachment=True
-                )
-
-                return '', '/{}'.format(relative_filename)
+                return '', '/{}'.format(relative_filename), 'download'
             except MemoryError:
-                return 'Недостаточно памяти. Попробуйте выбрать меньший диапазон времени', '#'
+                return 'Недостаточно памяти. Попробуйте выбрать меньший диапазон времени', '#', ''
 
 
 

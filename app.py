@@ -11,6 +11,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import io
 import pandas as pd
+import plotly.graph_objs as go
 import model
 # import temp_with_postgre
 import openpyxl
@@ -340,6 +341,46 @@ def choose_all(n_clicks):
         cb5_val = ['al_ie', 'au_ie', 'ae_ie']
         cb6_val = ['middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices']
         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
+
+
+
+
+
+
+
+
+
+# функция для графика
+@app.callback(
+    [Output("cluster-graph", "figure")],
+    [Input('my-date-picker-range', 'start_date'),
+     Input('my-date-picker-range', 'end_date'),
+     Input('start_time', 'value'),
+     Input('end_time', 'value'),
+     Input('time_step', 'value'),
+     Input('checkbox_1', 'value'),
+     Input('checkbox_2', 'value'),
+     Input('checkbox_3', 'value'),
+     Input('checkbox_4', 'value'),
+     Input('checkbox_5', 'value'),
+     Input('checkbox_6', 'value')
+     ],
+)
+def update_output(date_begin, date_end, time_begin, time_end, time_step,
+                  sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
+    sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
+
+    if date_begin is None or date_end is None:
+        if time_step is None:
+            if sought_info.size() > 0:
+                try:
+                    b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+                    return b
+                except MemoryError:
+                    return 0
+
+
+
 
 
 

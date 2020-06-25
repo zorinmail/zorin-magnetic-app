@@ -34,8 +34,256 @@ app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-styl
 
 app.title = ('Indices')
 
+
+
+controls = dbc.Card(
+    [
+        html.Div([
+            html.H3('Выберите параметры времени', style={'text-align': 'center'}),
+        ]),
+
+        html.Div([
+            html.H5('Даты', style={'text-align': 'center'}),
+            dcc.DatePickerRange(
+                id='my-date-picker-range',
+                min_date_allowed=dt(2015, 1, 1),
+                max_date_allowed=dt(2016, 1, 1),
+                initial_visible_month=dt(2015, 2, 10),
+                # end_date=dt(2015, 3, 17),
+                # start_date=dt(2015, 2, 1),
+                start_date_placeholder_text="Start Period",
+                end_date_placeholder_text="End Period",
+            ),
+        ], style={'text-align': 'center'}),
+
+        html.H5('Время', style={'text-align': 'center'}),
+
+        html.Div([
+            html.Div([
+                # html.Label('начальное время', style = {'text-align': 'center'}),
+                dcc.Dropdown(
+                    id='start_time',
+                    options=[
+                        {'label': '00:00', 'value': '00:00'},
+                        {'label': '01:00', 'value': '01:00'},
+                        {'label': '02:00', 'value': '02:00'},
+                        {'label': '03:00', 'value': '03:00'},
+                        {'label': '04:00', 'value': '04:00'},
+                        {'label': '05:00', 'value': '05:00'},
+                        {'label': '06:00', 'value': '06:00'},
+                        {'label': '07:00', 'value': '07:00'},
+                        {'label': '08:00', 'value': '08:00'},
+                        {'label': '09:00', 'value': '09:00'},
+                        {'label': '10:00', 'value': '10:00'},
+                        {'label': '11:00', 'value': '11:00'},
+                        {'label': '12:00', 'value': '12:00'},
+                        {'label': '13:00', 'value': '13:00'},
+                        {'label': '14:00', 'value': '14:00'},
+                        {'label': '15:00', 'value': '15:00'},
+                        {'label': '16:00', 'value': '16:00'},
+                        {'label': '17:00', 'value': '17:00'},
+                        {'label': '18:00', 'value': '18:00'},
+                        {'label': '19:00', 'value': '19:00'},
+                        {'label': '20:00', 'value': '20:00'},
+                        {'label': '21:00', 'value': '21:00'},
+                        {'label': '22:00', 'value': '22:00'},
+                        {'label': '23:00', 'value': '23:00'},
+                    ],
+                    value='00:00'
+                ),
+            ], style={'margin': '0 10px 0 10px', 'width': '100px'}),
+
+            html.Div([
+                # html.Label('конечное время', style = {'text-align': 'center'}),
+                dcc.Dropdown(
+                    id='end_time',
+                    options=[
+                        {'label': '00:00', 'value': '00:00'},
+                        {'label': '01:00', 'value': '01:00'},
+                        {'label': '02:00', 'value': '02:00'},
+                        {'label': '03:00', 'value': '03:00'},
+                        {'label': '04:00', 'value': '04:00'},
+                        {'label': '05:00', 'value': '05:00'},
+                        {'label': '06:00', 'value': '06:00'},
+                        {'label': '07:00', 'value': '07:00'},
+                        {'label': '08:00', 'value': '08:00'},
+                        {'label': '09:00', 'value': '09:00'},
+                        {'label': '10:00', 'value': '10:00'},
+                        {'label': '11:00', 'value': '11:00'},
+                        {'label': '12:00', 'value': '12:00'},
+                        {'label': '13:00', 'value': '13:00'},
+                        {'label': '14:00', 'value': '14:00'},
+                        {'label': '15:00', 'value': '15:00'},
+                        {'label': '16:00', 'value': '16:00'},
+                        {'label': '17:00', 'value': '17:00'},
+                        {'label': '18:00', 'value': '18:00'},
+                        {'label': '19:00', 'value': '19:00'},
+                        {'label': '20:00', 'value': '20:00'},
+                        {'label': '21:00', 'value': '21:00'},
+                        {'label': '22:00', 'value': '22:00'},
+                        {'label': '23:00', 'value': '23:00'},
+                    ],
+                    value='00:00'
+                ),
+            ], style={'margin': '0 10px 0 10px', 'width': '100px'}),
+        ],
+            style={
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+            }),
+
+        html.Div([
+            html.H5('Шаг', style={'text-align': 'center'}),
+            dcc.Dropdown(
+                id='time_step',
+                options=[
+                    {'label': '10 sec', 'value': '10S', 'disabled': True},
+                    {'label': '1 min', 'value': '60S', 'disabled': True},
+                    {'label': '5 min', 'value': '300S', 'disabled': True},
+                    {'label': '10 min', 'value': '600S', 'disabled': True},
+                    {'label': '15 min', 'value': '900S', 'disabled': True},
+                    {'label': '30 min', 'value': '1800S', 'disabled': True},
+                    {'label': '1 h', 'value': '1H'},
+                    {'label': '2 h', 'value': '2H'},
+                    {'label': '6 h', 'value': '6H'},
+                    {'label': '12 h', 'value': '12H'},
+                    {'label': '1 day', 'value': '1D'},
+                ],
+                value='1H'
+            ),
+        ], style={'margin': 'auto', 'width': '100px'}
+        ),
+
+        html.Div([
+            html.H3('Выберите параметры поля', style={'text-align': 'center', 'margin-bottom': '6px'}),
+            html.Button('выбрать всё', id='choose_all',
+                        style={'display': 'inline-block',
+                               'background-color': 'white',
+                               'color': 'gray',
+                               'font-weight': '500',
+                               'font-size': '10px',
+                               'padding': '0 2px'}),
+        ], style={'text-align': 'center'}),
+
+        html.Div([
+            html.Div([
+                dcc.Checklist(
+                    # name ='checkbox_1',
+                    id='checkbox_1',
+                    inputClassName='checkbox_1',
+                    options=[
+                        {'label': 'AE', 'value': 'ae'},
+                        {'label': 'AU', 'value': 'au'},
+                        {'label': 'AL', 'value': 'al'},
+                        {'label': 'AO', 'value': 'ao'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+            html.Div([
+                dcc.Checklist(
+                    # name='checkbox_1',
+                    id='checkbox_2',
+                    inputClassName='checkbox_2',
+                    options=[
+                        {'label': 'PCN', 'value': 'pcn'},
+                        {'label': 'PCS', 'value': 'pcs'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+            html.Div([
+                dcc.Checklist(
+                    # name='checkbox_1',
+                    id='checkbox_3',
+                    inputClassName='checkbox_3',
+                    options=[
+                        {'label': 'SME', 'value': 'sme'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+            html.Div([
+                dcc.Checklist(
+                    # name='checkbox_1',
+                    id='checkbox_4',
+                    inputClassName='checkbox_4',
+                    options=[
+                        {'label': 'ASY-D', 'value': 'asy_d'},
+                        {'label': 'ASY-H', 'value': 'asy_h'},
+                        {'label': 'SYM-D', 'value': 'sym_d'},
+                        {'label': 'SYM-H', 'value': 'sym_h'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+            html.Div([
+                dcc.Checklist(
+                    # name='checkbox_1',
+                    id='checkbox_5',
+                    inputClassName='checkbox_5',
+                    options=[
+                        {'label': 'AL (ie)', 'value': 'al_ie'},
+                        {'label': 'AU (ie)', 'value': 'au_ie'},
+                        {'label': 'AE (ie)', 'value': 'ae_ie'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+            html.Div([
+                dcc.Checklist(
+                    # name='checkbox_1',
+                    id='checkbox_6',
+                    inputClassName='checkbox_6',
+                    options=[
+                        {'label': 'Middle Latitude A', 'value': 'middle_latitude_a'},
+                        {'label': 'Middle Latitude K-indices', 'value': 'middle_latitude_k_indices'},
+                        {'label': 'High Latitude A', 'value': 'high_latitude_a'},
+                        {'label': 'High Latitude K-indices', 'value': 'high_latitude_k_indices'},
+                        {'label': 'Estimated A', 'value': 'estimated_a'},
+                        {'label': 'Estimated K-indices', 'value': 'estimated_k_indices'},
+                    ],
+                    value=[]
+                ),
+            ], style={'padding': '0 15px'}),
+        ], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
+
+        html.Div([
+            html.Button('OK', id='main_button',
+                        style={'margin': 'auto',
+                               'display': 'inline-block',
+                               'background-color': 'green',
+                               'color': 'white',
+                               'font-weight': '700',
+                               'font-size': '20px'}),
+        ], style={'text-align': 'center', 'margin-top': '15px'}),
+
+        html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
+        html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
+                 children=[html.A(
+                     'Download Data',
+                     id='download-link',
+                     download="data.xlsx",
+                     href="#",
+                     target="_blank"
+                 )]
+                 ),
+    ],
+    body=True,
+)
+
+
+
 app.layout = html.Div(
     [
+        dbc.Row(
+            [
+                dbc.Col(controls, md=4),
+                dbc.Col(dcc.Graph(id="cluster-graph"), md=8),
+            ],
+            align="center",
+        ),
 
         html.Div([
             html.H1(children = 'Индексы геомагнитной активности', style = {'margin-bottom': '10px'}),

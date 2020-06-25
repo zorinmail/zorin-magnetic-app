@@ -378,7 +378,7 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
 
                     data = [
                         dict(
-                            x=df[df.index == i][df.index],
+                            x=df[df.index == i]['index'],
                             y=df[df.index == i]['ae'],
                             text=df[df.index == i]['ae'],
                             mode='markers',

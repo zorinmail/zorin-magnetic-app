@@ -23,7 +23,7 @@ def time_selection(df, timestep):
     df['datetime'] = pd.to_datetime(df['datetime'], format='%Y-%m-%d' + ' ' + '%H:%M:%S')
     dff = df.resample(rule, on='datetime').mean()
     dfff = dff.round(1)
-    dfff['datetime'] = dff.index
+    # dfff['datetime'] = dff.index
     return dfff
 
 

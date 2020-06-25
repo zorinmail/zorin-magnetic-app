@@ -379,7 +379,7 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                     data = []
                     for i in sought_info:
                         temp = {
-                            "x": df["datetime"],
+                            "x": df.index,
                             "y": df[i],
                             "name": "Successful",
                             "type": "line",

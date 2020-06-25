@@ -279,8 +279,8 @@ app.layout = html.Div(
     [
         dbc.Row(
             [
-                dbc.Col(controls, md=4),
-                dbc.Col(dcc.Graph(id="cluster-graph"), md=8),
+                dbc.Col(controls, md=6),
+                dbc.Col(dcc.Graph(id="cluster-graph"), md=6),
             ],
             align="center",
         ),

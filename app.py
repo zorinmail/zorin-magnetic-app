@@ -376,33 +376,28 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                 try:
                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
-                    data = []
-                    for i in sought_info:
-                        trace = go.Scatter(x=df.index.tolist(),
-                                           y=df.i.tolist(),
-                                           name=i)
-                        data.append(trace)
+                    data = [
+                        dict(
+                            x=df[df.index == i][df.index],
+                            y=df[df.index == i]['ae'],
+                            text=df[df.index == i]['ae'],
+                            mode='markers',
+                            opacity=0.7,
+                            marker={
+                                'size': 15,
+                                'line': {'width': 0.5, 'color': 'white'}
+                            },
+                            name=i
+                        ) for i in df.index.unique()
+                    ]
 
-                    # data = [
-                    #     {
-                    #         "x": df.index,
-                    #         "y": df["ae"],
-                    #         "name": "ae",
-                    #         "type": "line",
-                    #         "marker": {"color": "#00ff00"},
-                    #     },
-                    #     {
-                    #         "x": df.index,
-                    #         "y": df["au"],
-                    #         "name": "au",
-                    #         "type": "line",
-                    #         "marker": {"color": "#ff0000"},
-                    #     },
-                    # ]
-                    layout = go.Layout(xaxis={'title': 'Time'},
-                                       yaxis={'title': 'Produced Units'},
-                                       margin={'l': 40, 'b': 40, 't': 50, 'r': 50},
-                                       hovermode='closest')
+                    layout = dict(
+                        xaxis={'title': 'datetime'},
+                        yaxis={'title': 'ae'},
+                        # margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+                        # legend={'x': 0, 'y': 1},
+                        hovermode='closest'
+                    )
 
                     # layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
                     return go.Figure(data=data, layout=layout)

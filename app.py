@@ -278,6 +278,10 @@ controls = dbc.Card(
 
 app.layout = html.Div(
     [
+        html.Div([
+            html.H1(children = 'Индексы геомагнитной активности (в разработке)', style = {'margin-bottom': '10px'}),
+        ], style = {'text-align': 'center'}),
+
         dbc.Row(
             [
                 dbc.Col(controls, md=6),
@@ -286,9 +290,7 @@ app.layout = html.Div(
             align="center",
         ),
 
-        html.Div([
-            html.H1(children = 'Индексы геомагнитной активности', style = {'margin-bottom': '10px'}),
-        ], style = {'text-align': 'center'}),
+
 
 
     ],
@@ -375,13 +377,11 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
             if len(sought_info) > 0:
                 try:
                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
-                    data = []
-                    for each in sought_info:
-                        data_to_append = [dict(
+                    data = [dict(
                             x=df[df.index == i]['datetime'],
                             # x = i,
-                            y=df[df.index == i][str(each)],
-                            text=df[df.index == i][str(each)],
+                            y=df[df.index == i]['ae'],
+                            text=df[df.index == i]['ae'],
                             mode='markers',
                             opacity=0.7,
                             marker={
@@ -389,8 +389,9 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                                 'line': {'width': 0.5, 'color': 'white'}
                             },
                             name=str(i)
-                        ) for i in df.index.unique()]
-                        data.append(data_to_append)
+                        ) for i in df.index.unique()
+                    ]
+
 
 
                     layout = dict(

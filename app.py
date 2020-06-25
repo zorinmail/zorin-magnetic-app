@@ -376,35 +376,35 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                 try:
                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
 
-                    # data = []
-                    # for i in sought_info:
-                    #     temp = {
+                    data = []
+                    for i in sought_info:
+                        trace = go.Scatter(x=df.datetime.tolist(),
+                                           y=df.i.tolist(),
+                                           name=i)
+                        data.append(trace)
+
+                    # data = [
+                    #     {
                     #         "x": df.index,
-                    #         "y": df[i],
-                    #         "name": "Successful",
+                    #         "y": df["ae"],
+                    #         "name": "ae",
                     #         "type": "line",
-                    #     }
-                    #     data.append(temp)
+                    #         "marker": {"color": "#00ff00"},
+                    #     },
+                    #     {
+                    #         "x": df.index,
+                    #         "y": df["au"],
+                    #         "name": "au",
+                    #         "type": "line",
+                    #         "marker": {"color": "#ff0000"},
+                    #     },
+                    # ]
+                    layout = go.Layout(xaxis={'title': 'Time'},
+                                       yaxis={'title': 'Produced Units'},
+                                       margin={'l': 40, 'b': 40, 't': 50, 'r': 50},
+                                       hovermode='closest')
 
-                    data = [
-                        {
-                            "x": df.index,
-                            "y": df["ae"],
-                            "name": "ae",
-                            "type": "line",
-                            "marker": {"color": "#00ff00"},
-                        },
-                        {
-                            "x": df.index,
-                            "y": df["au"],
-                            "name": "au",
-                            "type": "line",
-                            "marker": {"color": "#ff0000"},
-                        },
-                    ]
-
-
-                    layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
+                    # layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
                     return go.Figure(data=data, layout=layout)
                 except MemoryError:
                     return 0

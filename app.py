@@ -378,7 +378,7 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
 
                     data = []
                     for i in sought_info:
-                        trace = go.Scatter(x=df.datetime.tolist(),
+                        trace = go.Scatter(x=df.index.tolist(),
                                            y=df.i.tolist(),
                                            name=i)
                         data.append(trace)

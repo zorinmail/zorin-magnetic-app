@@ -375,7 +375,7 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
             if len(sought_info) > 0:
                 try:
                     b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
-                    layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
+                    layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
                     return go.Figure(data=b, layout=layout)
                 except MemoryError:
                     return 0

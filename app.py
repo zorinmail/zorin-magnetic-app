@@ -38,8 +38,8 @@ app.title = ('Indices')
 
 
 
-controls = dbc.Card(
-    [
+#controls = dbc.Card( # !!!!! почему card?
+controls = [
         html.Div([
             html.H3('Выберите параметры времени', style={'text-align': 'center'}),
         ]),
@@ -272,8 +272,8 @@ controls = dbc.Card(
                  )]
                  ),
     ],
-    body=True,
-)
+    #body=True,
+#)
 
 
 

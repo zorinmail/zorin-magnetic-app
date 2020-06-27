@@ -453,6 +453,7 @@ def update_output(n_clicks, n_clicks2, date_begin, date_end, time_begin, time_en
         else:
             try:
                 b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+                del b['datetime']
 
                 now=dt.now(timezone.utc)
                 now_str = now.strftime("%d_%m_%Y_%H_%M_%S")

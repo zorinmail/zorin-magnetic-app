@@ -41,7 +41,7 @@ app.title = ('Indices')
 controls = dbc.Card( # !!!!! почему card?
     [
         html.Div([
-            html.H3('Выберите параметры времени', style={'text-align': 'center'}),
+            html.H4('Выберите параметры времени', style={'text-align': 'center'}),
         ]),
 
         html.Div([
@@ -158,14 +158,8 @@ controls = dbc.Card( # !!!!! почему card?
         ),
 
         html.Div([
-            html.H3('Выберите параметры поля', style={'text-align': 'center', 'margin-bottom': '6px'}),
-            html.Button('выбрать всё', id='choose_all',
-                        style={'display': 'inline-block',
-                               'background-color': 'white',
-                               'color': 'gray',
-                               'font-weight': '500',
-                               'font-size': '10px',
-                               'padding': '0 2px'}),
+            html.H4('Выберите параметры поля', style={'text-align': 'center', 'margin-bottom': '6px'}),
+            dbc.Button("выбрать всё", color="light", size="sm", id='choose_all'),
         ], style={'text-align': 'center'}),
 
         html.Div([
@@ -337,7 +331,7 @@ app.layout = html.Div(
     [
         html.Div([
             html.H1(children = 'Индексы геомагнитной активности (в разработке)', style = {'margin-bottom': '10px'}),
-        ], style = {'text-align': 'center'}),
+        ], style = {'text-align': 'center', 'height': '5vh'}),
 
         dbc.Row(
             [
@@ -358,19 +352,30 @@ app.layout = html.Div(
     }
 )
 
-# функция для наполнения БД
-# @app.callback(
-#     [Output('state_filling_db', 'children')],
-#     [Input('button_fill_month_to_db', 'n_clicks')],
-#     [State('month_id', 'value')]
-# )
-# def choose_all(n_clicks, month):
-#     if n_clicks is None:
-#         text = ['0']
-#     else:
-#         temp_with_postgre.mainFunction(month)
-#         text = [str(month) + ' месяц заполнен']
-#     return text
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # функция для выбора всех индексов
@@ -495,13 +500,13 @@ def update_output(n_clicks, n_clicks2, date_begin, date_end, time_begin, time_en
         raise PreventUpdate
     else:
         if date_begin is None or date_end is None:
-            return 'Не введены даты!', '#', ''
+            return 'Не введены даты!', '#', '', is_open
         elif time_begin is None or time_end is None:
-            return 'Не введены диапазоны времени!', '#', ''
+            return 'Не введены диапазоны времени!', '#', '', is_open
         elif time_step is None:
-            return 'Не введен шаг времени!', '#', ''
+            return 'Не введен шаг времени!', '#', '', is_open
         elif len(sought_info) == 0:
-            return 'Не выбраны параметры поля!', '#', ''
+            return 'Не выбраны параметры поля!', '#', '', is_open
         else:
             try:
                 b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
@@ -534,3 +539,21 @@ def my_serve_static(path):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+
+
+
+# функция для наполнения БД
+# @app.callback(
+#     [Output('state_filling_db', 'children')],
+#     [Input('button_fill_month_to_db', 'n_clicks')],
+#     [State('month_id', 'value')]
+# )
+# def choose_all(n_clicks, month):
+#     if n_clicks is None:
+#         text = ['0']
+#     else:
+#         temp_with_postgre.mainFunction(month)
+#         text = [str(month) + ' месяц заполнен']
+#     return text

@@ -323,7 +323,7 @@ controls = dbc.Card(
 
     ],
     body=True,
-    style={'overflow': 'auto', 'height': '88vh'},
+    style={'overflow': 'auto', 'height': '100%'},
 )
 
 
@@ -338,7 +338,7 @@ app.layout = html.Div(
             dbc.Row(
                 [
                     dbc.Col(controls, md=3),
-                    dbc.Col(dcc.Graph(id="cluster-graph"), md=9),
+                    dbc.Col(dcc.Graph(style={'height': '80%'}, id="cluster-graph"), md=9),
                 ],
                 align="center",
             ),

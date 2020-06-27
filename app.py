@@ -13,6 +13,7 @@ from dash.exceptions import PreventUpdate
 import io
 import pandas as pd
 import plotly.graph_objs as go
+import plotly.express as px
 import model
 # import temp_with_postgre
 import openpyxl
@@ -22,19 +23,13 @@ import openpyxl
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 external_stylesheets=['https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
 
-sizes = {
-    'container-div': '800px',
-}
-
-
 server = Flask(__name__)
 app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 
-
-
-app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
+# app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
 
 app.title = ('Indices')
+
 
 
 
@@ -51,8 +46,6 @@ controls = dbc.Card(
                 min_date_allowed=dt(2015, 1, 1),
                 max_date_allowed=dt(2016, 1, 1),
                 initial_visible_month=dt(2015, 2, 10),
-                # end_date=dt(2015, 3, 17),
-                # start_date=dt(2015, 2, 1),
                 start_date_placeholder_text="Start Period",
                 end_date_placeholder_text="End Period",
             ),
@@ -62,7 +55,6 @@ controls = dbc.Card(
 
         html.Div([
             html.Div([
-                # html.Label('начальное время', style = {'text-align': 'center'}),
                 dcc.Dropdown(
                     id='start_time',
                     options=[
@@ -96,7 +88,6 @@ controls = dbc.Card(
             ], style={'margin': '0 10px 0 10px', 'width': '100px'}),
 
             html.Div([
-                # html.Label('конечное время', style = {'text-align': 'center'}),
                 dcc.Dropdown(
                     id='end_time',
                     options=[
@@ -183,7 +174,6 @@ controls = dbc.Card(
                 ),
             ], style={'padding': '0 15px'}),
 
-
             html.Div([
                 dbc.FormGroup(
                     [
@@ -202,7 +192,6 @@ controls = dbc.Card(
                 ),
             ], style={'padding': '0 15px'}),
 
-
             html.Div([
                 dbc.FormGroup(
                     [
@@ -219,7 +208,6 @@ controls = dbc.Card(
                     ]
                 ),
             ], style={'padding': '0 15px'}),
-
 
             html.Div([
                 dbc.FormGroup(
@@ -241,7 +229,6 @@ controls = dbc.Card(
                 ),
             ], style={'padding': '0 15px'}),
 
-
             html.Div([
                 dbc.FormGroup(
                     [
@@ -261,9 +248,7 @@ controls = dbc.Card(
                 ),
             ], style={'padding': '0 15px'}),
 
-
             html.Div([
-
                 dbc.FormGroup(
                     [
                         dbc.Label("A, K-indices"),
@@ -284,8 +269,6 @@ controls = dbc.Card(
                     ]
                 ),
             ], style={'padding': '0 15px'}),
-
-        #], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
         ], style={'padding': '15px 0 0 30px', 'overflow': 'auto', 'justify-content': 'center', 'height': '30vh'}),
 
 
@@ -321,6 +304,10 @@ controls = dbc.Card(
 )
 
 
+df_express = px.data.iris() # iris is a pandas DataFrame
+fig = px.scatter(df_express, x="sepal_width", y="sepal_length")
+
+
 
 app.layout = html.Div(
     [
@@ -332,11 +319,11 @@ app.layout = html.Div(
             dbc.Row(
                 [
                     dbc.Col(controls, md=3),
-                    dbc.Col(html.Div([
-                        dbc.Button("Скачать данные", color="success", className="mr-1",),
-                    ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
+                    # dbc.Col(html.Div([
+                    #     dbc.Button("Скачать данные", color="success", className="mr-1",),
+                    # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
-                    # dbc.Col(dcc.Graph(style={'height': '80%'}, id="cluster-graph"), md=9),
+                    dbc.Col(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), md=9),
                 ],
                 align="center",
             ),
@@ -348,7 +335,6 @@ app.layout = html.Div(
         'padding': '10px 0 0 0',
         'height': '100%',
         'width': '95%',
-        # 'width': sizes['container-div'],
         'margin': 'auto'
     }
 )

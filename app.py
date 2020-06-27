@@ -297,7 +297,7 @@ app.layout = html.Div(
     ],
     style={
         'padding': '20px 0 0 0',
-        'width': sizes['container-div'],
+        # 'width': sizes['container-div'],
         'margin': 'auto'
     }
 )

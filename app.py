@@ -323,7 +323,7 @@ controls = dbc.Card(
 
     ],
     body=True,
-    style={'overflow': 'auto'},
+    style={'overflow': 'auto', 'height': '90vh'},
 )
 
 

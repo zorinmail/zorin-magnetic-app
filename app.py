@@ -18,9 +18,9 @@ import model
 import openpyxl
 
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-# external_stylesheets=[dbc.themes.BOOTSTRAP]
+external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 sizes = {
     'container-div': '800px',
@@ -323,6 +323,7 @@ controls = dbc.Card( # !!!!! почему card?
                 ),
             ],
             id="download_modal",
+            centered=True,
         ),
 
 
@@ -340,8 +341,8 @@ app.layout = html.Div(
 
         dbc.Row(
             [
-                dbc.Col(controls, md=4),
-                dbc.Col(dcc.Graph(id="cluster-graph"), md=8),
+                dbc.Col(controls, md=3),
+                dbc.Col(dcc.Graph(id="cluster-graph"), md=9),
             ],
             align="center",
         ),
@@ -399,11 +400,6 @@ def choose_all(n_clicks):
         cb5_val = ['al_ie', 'au_ie', 'ae_ie']
         cb6_val = ['middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices']
         return cb1_val, cb2_val, cb3_val, cb4_val, cb5_val, cb6_val
-
-
-
-
-
 
 
 

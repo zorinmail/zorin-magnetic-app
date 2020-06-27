@@ -290,14 +290,8 @@ controls = dbc.Card(
 
 
         html.Div([
-            html.Button('Скачать данные', id='main_button',
-                        style={'margin': 'auto',
-                               'display': 'inline-block',
-                               'background-color': 'green',
-                               'color': 'white',
-                               'font-weight': '700',
-                               'font-size': '20px'}),
-        ], style={'text-align': 'center', 'margin-top': '15px'}),
+            dbc.Button("Скачать данные", color="success", className="mr-1", id='main_button'),
+        ], style={'margin-top': '15px'}),
 
         html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
 

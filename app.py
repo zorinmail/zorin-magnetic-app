@@ -291,11 +291,12 @@ controls = dbc.Card( # !!!!! почему card?
                 ),
             ], style={'padding': '0 15px'}),
 
-        ], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
+        #], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
+        ], style={'padding': '15px 0 0 30px', 'overflow': 'auto', 'justify-content': 'center', 'height': '400px'}),
 
 
         html.Div([
-            html.Button('Download data', id='main_button',
+            html.Button('Скачать данные', id='main_button',
                         style={'margin': 'auto',
                                'display': 'inline-block',
                                'background-color': 'green',
@@ -305,18 +306,6 @@ controls = dbc.Card( # !!!!! почему card?
         ], style={'text-align': 'center', 'margin-top': '15px'}),
 
         html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
-
-
-        # html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
-        #          children=[html.A(
-        #              '',
-        #              id='download-link',
-        #              # download="data.xlsx",
-        #              href="#",
-        #              target="_blank"
-        #          )]
-        # ),
-
 
         dbc.Modal(
             [
@@ -335,7 +324,6 @@ controls = dbc.Card( # !!!!! почему card?
             ],
             id="download_modal",
         ),
-
 
 
     ],

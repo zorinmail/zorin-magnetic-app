@@ -38,10 +38,10 @@ app.title = ('Indices')
 
 
 
-controls = dbc.Card( # !!!!! почему card?
+controls = dbc.Card(
     [
         html.Div([
-            html.H4('Выберите параметры времени', style={'text-align': 'center'}),
+            html.H4('Параметры времени', style={'text-align': 'center'}),
         ]),
 
         html.Div([
@@ -158,7 +158,7 @@ controls = dbc.Card( # !!!!! почему card?
         ),
 
         html.Div([
-            html.H4('Выберите параметры поля', style={'text-align': 'center', 'margin-bottom': '6px'}),
+            html.H4('Индексы', style={'text-align': 'center', 'margin-bottom': '6px'}),
             dbc.Button("выбрать всё", color="light", size="sm", id='choose_all'),
         ], style={'text-align': 'center'}),
 
@@ -323,6 +323,7 @@ controls = dbc.Card( # !!!!! почему card?
 
     ],
     body=True,
+    style={'overflow': 'auto'},
 )
 
 
@@ -331,17 +332,17 @@ app.layout = html.Div(
     [
         html.Div([
             html.H1(children = 'Индексы геомагнитной активности (в разработке)', style = {'margin-bottom': '10px'}),
-        ], style = {'text-align': 'center', 'height': '5vh'}),
+        ], style = {'text-align': 'center', 'height': '8vh'}),
 
-        dbc.Row(
-            [
-                dbc.Col(controls, md=3),
-                dbc.Col(dcc.Graph(id="cluster-graph"), md=9),
-            ],
-            align="center",
-        ),
-
-
+        html.Div([
+            dbc.Row(
+                [
+                    dbc.Col(controls, md=3),
+                    dbc.Col(dcc.Graph(id="cluster-graph"), md=9),
+                ],
+                align="center",
+            ),
+        ], style={'height': '92vh'}),
 
 
     ],

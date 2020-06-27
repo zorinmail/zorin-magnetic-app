@@ -304,22 +304,17 @@ controls = dbc.Card(
 )
 
 
-# sought_info_px = ['ae','au','al','ao',
-#                'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
-#                'pcn','pcs',
-#                'sme',
-#                'asy_d', 'asy_h', 'sym_d', 'sym_h']
-#
-# df_express = model.mainFunction('2015-01-01',
-#                        '00:00:00',
-#                        '2015-01-31',
-#                        '23:59:00',
-#                        '1D',
-#                        sought_info_px)
-# df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
-# fig = px.line(df_melt, x="datetime", y='value', color='variable')
-dfpx = px.data.iris() # iris is a pandas DataFrame
-fig = px.scatter(dfpx, x="sepal_width", y="sepal_length")
+sought_info_px = ['pcn','pcs']
+df_express = model.mainFunction('2015-01-01',
+                       '00:00:00',
+                       '2015-01-31',
+                       '23:59:00',
+                       '1D',
+                       sought_info_px)
+df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
+fig = px.line(df_melt, x="datetime", y='value', color='variable')
+# dfpx = px.data.iris() # iris is a pandas DataFrame
+# fig = px.scatter(dfpx, x="sepal_width", y="sepal_length")
 
 
 app.layout = html.Div(

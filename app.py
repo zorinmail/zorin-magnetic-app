@@ -166,7 +166,7 @@ controls = dbc.Card(
             html.Div([
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("AE, AU, AL, AO"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'AE', 'value': 'ae'},
@@ -187,7 +187,7 @@ controls = dbc.Card(
             html.Div([
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("PCN, PCS"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'PCN', 'value': 'pcn'},
@@ -206,7 +206,7 @@ controls = dbc.Card(
             html.Div([
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("SME"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'SME', 'value': 'sme'},
@@ -224,7 +224,7 @@ controls = dbc.Card(
             html.Div([
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("ASY, SYM"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'ASY-D', 'value': 'asy_d'},
@@ -245,7 +245,7 @@ controls = dbc.Card(
             html.Div([
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("AL, AU, AE"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'AL (ie)', 'value': 'al_ie'},
@@ -266,7 +266,7 @@ controls = dbc.Card(
 
                 dbc.FormGroup(
                     [
-                        dbc.Label("Toggle a bunch"),
+                        dbc.Label("A, K-indices"),
                         dbc.Checklist(
                             options=[
                                 {'label': 'Middle Latitude A', 'value': 'middle_latitude_a'},
@@ -323,7 +323,7 @@ controls = dbc.Card(
 
     ],
     body=True,
-    style={'overflow': 'auto', 'height': '90vh'},
+    style={'overflow': 'auto', 'height': '88vh'},
 )
 
 

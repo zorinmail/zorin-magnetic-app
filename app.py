@@ -297,7 +297,7 @@ controls = dbc.Card(
 
         dbc.Modal(
             [
-                dbc.ModalHeader("Скачайте данные по ссылке ниже"),
+                dbc.ModalHeader("Данные по ссылке"),
                 dbc.ModalBody(html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
                          children=[html.A(
                              'download',
@@ -347,6 +347,7 @@ app.layout = html.Div(
     style={
         'padding': '10px 0 0 0',
         'height': '100%',
+        'width': '90%',
         # 'width': sizes['container-div'],
         'margin': 'auto'
     }

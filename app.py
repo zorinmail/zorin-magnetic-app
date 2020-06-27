@@ -314,7 +314,7 @@ df_express = model.mainFunction('2015-01-01',
                        '1H',
                        ['ae','au','al','ao'])
 df_melt = df_express.melt(id_vars='datetime', value_vars=['ae','au','al','ao'])
-fig = px.line(df_express, x="datetime", y='value', color='variable')
+fig = px.line(df_melt, x="datetime", y='value', color='variable')
 
 
 

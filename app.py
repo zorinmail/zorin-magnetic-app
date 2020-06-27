@@ -304,19 +304,19 @@ controls = dbc.Card(
 )
 
 
-# df_express = px.data.iris() # iris is a pandas DataFrame
-sought_info_px = ['ae','au','al','ao',
-               'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
-               'pcn','pcs',
-               'sme',
-               'asy_d', 'asy_h', 'sym_d', 'sym_h']
-
-df_express = model.mainFunction('2015-01-01',
-                       '00:00:00',
-                       '2015-01-28',
-                       '23:59:00',
-                       '1H',
-                       sought_info_px)
+# # df_express = px.data.iris() # iris is a pandas DataFrame
+# sought_info_px = ['ae','au','al','ao',
+#                'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
+#                'pcn','pcs',
+#                'sme',
+#                'asy_d', 'asy_h', 'sym_d', 'sym_h']
+#
+# df_express = model.mainFunction('2015-01-01',
+#                        '00:00:00',
+#                        '2015-01-28',
+#                        '23:59:00',
+#                        '1H',
+#                        sought_info_px)
 df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
 fig = px.line(df_melt, x="datetime", y='value', color='variable')
 
@@ -336,7 +336,7 @@ app.layout = html.Div(
                     #     dbc.Button("Скачать данные", color="success", className="mr-1",),
                     # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
-                    dbc.Col(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), md=9),
+                    dbc.Col(dcc.Graph(style={'height': '100%'}, id="index_graph"), md=9),
                 ],
                 align="center",
             ),
@@ -410,63 +410,35 @@ def choose_all(n_clicks):
 
 
 # функция для графика
-# @app.callback(
-#     Output("cluster-graph", "figure"),
-#     [Input('my-date-picker-range', 'start_date'),
-#      Input('my-date-picker-range', 'end_date'),
-#      Input('start_time', 'value'),
-#      Input('end_time', 'value'),
-#      Input('time_step', 'value'),
-#      Input('checkbox_1', 'value'),
-#      Input('checkbox_2', 'value'),
-#      Input('checkbox_3', 'value'),
-#      Input('checkbox_4', 'value'),
-#      Input('checkbox_5', 'value'),
-#      Input('checkbox_6', 'value')
-#      ],
-# )
-# def update_output(date_begin, date_end, time_begin, time_end, time_step,
-#                   sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
-#     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
-#
-#     if date_begin is not None or date_end is not None:
-#         if time_step is not None:
-#             if len(sought_info) > 0:
-#                 try:
-#                     df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
-#                     data = [dict(
-#                             x=df[df.index == i]['datetime'],
-#                             # x = i,
-#                             y=df[df.index == i]['ae'],
-#                             text=df[df.index == i]['ae'],
-#                             mode='markers',
-#                             opacity=0.7,
-#                             marker={
-#                                 'size': 15,
-#                                 'line': {'width': 0.5, 'color': 'white'}
-#                             },
-#                             name=str(i)
-#                         ) for i in df.index.unique()
-#                     ]
-#
-#
-#
-#                     layout = dict(
-#                         xaxis={'title': 'datetime'},
-#                         yaxis={'title': 'some'},
-#                         # margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-#                         # legend={'x': 0, 'y': 1},
-#                         hovermode='closest'
-#                     )
-#
-#                     # layout = {"xaxis": {"title": 'time'}, "yaxis": {"title": 'y'}}
-#                     return go.Figure(data=data, layout=layout)
-#                 except MemoryError:
-#                     return 0
+@app.callback(
+    Output("index_graph", "figure"),
+    [Input('my-date-picker-range', 'start_date'),
+     Input('my-date-picker-range', 'end_date'),
+     Input('start_time', 'value'),
+     Input('end_time', 'value'),
+     Input('time_step', 'value'),
+     Input('checkbox_1', 'value'),
+     Input('checkbox_2', 'value'),
+     Input('checkbox_3', 'value'),
+     Input('checkbox_4', 'value'),
+     Input('checkbox_5', 'value'),
+     Input('checkbox_6', 'value')
+     ],
+)
+def update_output(date_begin, date_end, time_begin, time_end, time_step,
+                  sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
+    sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
 
-
-
-
+    if date_begin is not None or date_end is not None:
+        if time_step is not None:
+            if len(sought_info) > 0:
+                try:
+                    df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+                    df_melt = df.melt(id_vars='datetime', value_vars=sought_info)
+                    fig = px.line(df_melt, x="datetime", y='value', color='variable')
+                    return fig
+                except MemoryError:
+                    return 0
 
 
 

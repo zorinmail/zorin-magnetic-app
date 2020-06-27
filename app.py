@@ -305,15 +305,19 @@ controls = dbc.Card(
 
 
 # df_express = px.data.iris() # iris is a pandas DataFrame
-
+sought_info_px = ['ae','au','al','ao',
+               'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
+               'pcn','pcs',
+               'sme',
+               'asy_d', 'asy_h', 'sym_d', 'sym_h']
 
 df_express = model.mainFunction('2015-01-01',
                        '00:00:00',
-                       '2015-01-02',
+                       '2015-01-28',
                        '23:59:00',
                        '1H',
-                       ['ae','au','al','ao'])
-df_melt = df_express.melt(id_vars='datetime', value_vars=['ae','au','al','ao'])
+                       sought_info_px)
+df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
 fig = px.line(df_melt, x="datetime", y='value', color='variable')
 
 

@@ -4,7 +4,7 @@ import psycopg2
 import sqlalchemy
 
 import connect_to_db
-engine = connect_to_db.create_engine()
+engine = connect_to_db.create_engine('server')
 
 # pg_user = 'axtwbbjtiajlqn'
 # pg_pass = 'b08a23d4e8da8bb01e89b5c02e29fa7b959a3a91be994ac1e7ec0c20fb322615'

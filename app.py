@@ -149,7 +149,7 @@ controls = dbc.Card(
         ),
 
         html.Div([
-            html.H4('Индексы', style={'text-align': 'center', 'margin-bottom': '6px'}),
+            html.H4('Индексы', style={'text-align': 'center', 'margin-bottom': '6px', 'margin-top': '6px'}),
             dbc.Button("выбрать всё", color="light", size="sm", id='choose_all'),
         ], style={'text-align': 'center'}),
 
@@ -304,7 +304,6 @@ controls = dbc.Card(
 )
 
 
-# # df_express = px.data.iris() # iris is a pandas DataFrame
 # sought_info_px = ['ae','au','al','ao',
 #                'middle_latitude_a', 'middle_latitude_k_indices', 'high_latitude_a', 'high_latitude_k_indices', 'estimated_a', 'estimated_k_indices',
 #                'pcn','pcs',
@@ -319,7 +318,8 @@ controls = dbc.Card(
 #                        sought_info_px)
 # df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
 # fig = px.line(df_melt, x="datetime", y='value', color='variable')
-
+dfpx = px.data.iris() # iris is a pandas DataFrame
+fig = px.scatter(dfpx, x="sepal_width", y="sepal_length")
 
 
 app.layout = html.Div(
@@ -336,7 +336,7 @@ app.layout = html.Div(
                     #     dbc.Button("Скачать данные", color="success", className="mr-1",),
                     # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
-                    dbc.Col(dcc.Graph(style={'height': '100%'}, id="index_graph"), md=9),
+                    dbc.Col(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), md=9),
                 ],
                 align="center",
             ),
@@ -351,27 +351,6 @@ app.layout = html.Div(
         'margin': 'auto'
     }
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -409,7 +388,7 @@ def choose_all(n_clicks):
 
 
 
-# функция для графика
+# функция для построения графика
 @app.callback(
     Output("index_graph", "figure"),
     [Input('my-date-picker-range', 'start_date'),

@@ -286,7 +286,7 @@ controls = dbc.Card(
             ], style={'padding': '0 15px'}),
 
         #], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
-        ], style={'padding': '15px 0 0 30px', 'overflow': 'auto', 'justify-content': 'center', 'height': '400px'}),
+        ], style={'padding': '15px 0 0 30px', 'overflow': 'auto', 'justify-content': 'center', 'height': '30vh'}),
 
 
         html.Div([

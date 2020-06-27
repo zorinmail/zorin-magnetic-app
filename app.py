@@ -317,8 +317,8 @@ controls = dbc.Card(
 #                        '23:59:00',
 #                        '1H',
 #                        sought_info_px)
-df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
-fig = px.line(df_melt, x="datetime", y='value', color='variable')
+# df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
+# fig = px.line(df_melt, x="datetime", y='value', color='variable')
 
 
 

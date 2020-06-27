@@ -32,7 +32,6 @@ app.title = ('Indices')
 
 
 
-
 controls = dbc.Card(
     [
         html.Div([
@@ -304,18 +303,6 @@ controls = dbc.Card(
 )
 
 
-sought_info_px = ['pcn','pcs']
-df_express = model.mainFunction('2015-01-01',
-                       '00:00:00',
-                       '2015-05-31',
-                       '23:59:00',
-                       '12H',
-                       sought_info_px)
-df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
-fig = px.line(df_melt, x="datetime", y='value', color='variable')
-# dfpx = px.data.iris() # iris is a pandas DataFrame
-# fig = px.scatter(dfpx, x="sepal_width", y="sepal_length")
-
 
 app.layout = html.Div(
     [
@@ -327,17 +314,11 @@ app.layout = html.Div(
             dbc.Row(
                 [
                     dbc.Col(controls, md=3),
-                    # dbc.Col(html.Div([
-                    #     dbc.Button("Скачать данные", color="success", className="mr-1",),
-                    # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
-
-                    dbc.Col(html.Div(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), id="div_for_graph"), md=9),
+                    dbc.Col(html.Div(id="div_for_graph"), md=9),
                 ],
                 align="center",
             ),
         ], style={'min-height': '90%'}),
-
-
     ],
     style={
         'padding': '10px 0 0 0',
@@ -483,9 +464,6 @@ def my_serve_static(path):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
-
 
 
 # функция для наполнения БД

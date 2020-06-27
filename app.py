@@ -297,7 +297,7 @@ controls = dbc.Card(
 
         dbc.Modal(
             [
-                dbc.ModalHeader("Данные по ссылке"),
+                dbc.ModalHeader("Вы можете скачать данные по ссылке"),
                 dbc.ModalBody(html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
                          children=[html.A(
                              'download',
@@ -332,9 +332,9 @@ app.layout = html.Div(
             dbc.Row(
                 [
                     dbc.Col(controls, md=3),
-                    html.Div([
+                    dbc.Col(html.Div([
                         dbc.Button("Скачать данные", color="success", className="mr-1",),
-                    ], style={'text-align': 'center', 'margin-top': '15px'}),
+                    ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
                     # dbc.Col(dcc.Graph(style={'height': '80%'}, id="cluster-graph"), md=9),
                 ],
@@ -347,7 +347,7 @@ app.layout = html.Div(
     style={
         'padding': '10px 0 0 0',
         'height': '100%',
-        'width': '90%',
+        'width': '95%',
         # 'width': sizes['container-div'],
         'margin': 'auto'
     }

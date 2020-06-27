@@ -331,7 +331,7 @@ app.layout = html.Div(
                     #     dbc.Button("Скачать данные", color="success", className="mr-1",),
                     # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
-                    dbc.Col(html.Div([dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph")], id="div_for_graph"), md=9),
+                    dbc.Col(html.Div(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), id="div_for_graph"), md=9),
                 ],
                 align="center",
             ),

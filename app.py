@@ -305,15 +305,39 @@ controls = dbc.Card( # !!!!! почему card?
         ], style={'text-align': 'center', 'margin-top': '15px'}),
 
         html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
-        html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
-                 children=[html.A(
-                     '',
-                     id='download-link',
-                     # download="data.xlsx",
-                     href="#",
-                     target="_blank"
-                 )]
-                 ),
+
+
+        # html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
+        #          children=[html.A(
+        #              '',
+        #              id='download-link',
+        #              # download="data.xlsx",
+        #              href="#",
+        #              target="_blank"
+        #          )]
+        # ),
+
+
+        dbc.Modal(
+            [
+                dbc.ModalHeader("Скачайте данные по ссылке ниже"),
+                dbc.ModalBody(html.Div(id='output_div2', style={'text-align': 'center', 'margin-top': '10px'},
+                         children=[html.A(
+                             'download',
+                             id='download-link',
+                             href="#",
+                             target="_blank"
+                         )]
+                    ),),
+                dbc.ModalFooter(
+                    dbc.Button("Close", id="close_modal", className="ml-auto")
+                ),
+            ],
+            id="download_modal",
+        ),
+
+
+
     ],
     body=True,
 )
@@ -461,8 +485,10 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
 @app.callback(
     [Output("output_div", "children"),
      Output("download-link", "href"),
-     Output("download-link", "children"),],
-    [Input(component_id='main_button', component_property='n_clicks')],
+     Output("download-link", "children"),
+     Output("download_modal", "is_open")],
+    [Input(component_id='main_button', component_property='n_clicks'),
+     Input("close_modal", "n_clicks")],
     [State('my-date-picker-range', 'start_date'),
      State('my-date-picker-range', 'end_date'),
      State('start_time', 'value'),
@@ -473,10 +499,12 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
      State('checkbox_3', 'value'),
      State('checkbox_4', 'value'),
      State('checkbox_5', 'value'),
-     State('checkbox_6', 'value')]
+     State('checkbox_6', 'value'),
+     State("download_modal", "is_open")]
 )
-def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_step,
-                  sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
+def update_output(n_clicks, n_clicks2, date_begin, date_end, time_begin, time_end, time_step,
+                  sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6,
+                  is_open):
     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
 
     if n_clicks is None:
@@ -504,8 +532,9 @@ def update_output(n_clicks, date_begin, date_end, time_begin, time_end, time_ste
                 writer = pd.ExcelWriter(absolute_filename)
                 b.to_excel(writer, 'Sheet1')
                 writer.save()
-
-                return '', '/{}'.format(relative_filename), 'download'
+                if n_clicks or n_clicks2:
+                    return '', '/{}'.format(relative_filename), 'Download', not is_open
+                return '', '/{}'.format(relative_filename), 'Download', is_open
             except MemoryError:
                 return 'Недостаточно памяти. Попробуйте выбрать меньший диапазон времени', '#', ''
 

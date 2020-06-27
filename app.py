@@ -170,89 +170,132 @@ controls = dbc.Card( # !!!!! почему card?
 
         html.Div([
             html.Div([
-                dcc.Checklist(
-                    # name ='checkbox_1',
-                    id='checkbox_1',
-                    inputClassName='checkbox_1',
-                    options=[
-                        {'label': 'AE', 'value': 'ae'},
-                        {'label': 'AU', 'value': 'au'},
-                        {'label': 'AL', 'value': 'al'},
-                        {'label': 'AO', 'value': 'ao'},
-                    ],
-                    value=[]
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'AE', 'value': 'ae'},
+                                {'label': 'AU', 'value': 'au'},
+                                {'label': 'AL', 'value': 'al'},
+                                {'label': 'AO', 'value': 'ao'},
+                            ],
+                            value=[],
+                            id="checkbox_1",
+                            inputClassName='checkbox_1',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
+
             html.Div([
-                dcc.Checklist(
-                    # name='checkbox_1',
-                    id='checkbox_2',
-                    inputClassName='checkbox_2',
-                    options=[
-                        {'label': 'PCN', 'value': 'pcn'},
-                        {'label': 'PCS', 'value': 'pcs'},
-                    ],
-                    value=[]
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'PCN', 'value': 'pcn'},
+                                {'label': 'PCS', 'value': 'pcs'},
+                            ],
+                            value=[],
+                            id="checkbox_2",
+                            inputClassName='checkbox_2',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
+
             html.Div([
-                dcc.Checklist(
-                    # name='checkbox_1',
-                    id='checkbox_3',
-                    inputClassName='checkbox_3',
-                    options=[
-                        {'label': 'SME', 'value': 'sme'},
-                    ],
-                    value=[]
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'SME', 'value': 'sme'},
+                            ],
+                            value=[],
+                            id="checkbox_3",
+                            inputClassName='checkbox_3',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
+
             html.Div([
-                dcc.Checklist(
-                    # name='checkbox_1',
-                    id='checkbox_4',
-                    inputClassName='checkbox_4',
-                    options=[
-                        {'label': 'ASY-D', 'value': 'asy_d'},
-                        {'label': 'ASY-H', 'value': 'asy_h'},
-                        {'label': 'SYM-D', 'value': 'sym_d'},
-                        {'label': 'SYM-H', 'value': 'sym_h'},
-                    ],
-                    value=[]
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'ASY-D', 'value': 'asy_d'},
+                                {'label': 'ASY-H', 'value': 'asy_h'},
+                                {'label': 'SYM-D', 'value': 'sym_d'},
+                                {'label': 'SYM-H', 'value': 'sym_h'},
+                            ],
+                            value=[],
+                            id="checkbox_4",
+                            inputClassName='checkbox_4',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
+
             html.Div([
-                dcc.Checklist(
-                    # name='checkbox_1',
-                    id='checkbox_5',
-                    inputClassName='checkbox_5',
-                    options=[
-                        {'label': 'AL (ie)', 'value': 'al_ie'},
-                        {'label': 'AU (ie)', 'value': 'au_ie'},
-                        {'label': 'AE (ie)', 'value': 'ae_ie'},
-                    ],
-                    value=[]
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'AL (ie)', 'value': 'al_ie'},
+                                {'label': 'AU (ie)', 'value': 'au_ie'},
+                                {'label': 'AE (ie)', 'value': 'ae_ie'},
+                            ],
+                            value=[],
+                            id="checkbox_5",
+                            inputClassName='checkbox_5',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
+
             html.Div([
-                dcc.Checklist(
-                    # name='checkbox_1',
-                    id='checkbox_6',
-                    inputClassName='checkbox_6',
-                    options=[
-                        {'label': 'Middle Latitude A', 'value': 'middle_latitude_a'},
-                        {'label': 'Middle Latitude K-indices', 'value': 'middle_latitude_k_indices'},
-                        {'label': 'High Latitude A', 'value': 'high_latitude_a'},
-                        {'label': 'High Latitude K-indices', 'value': 'high_latitude_k_indices'},
-                        {'label': 'Estimated A', 'value': 'estimated_a'},
-                        {'label': 'Estimated K-indices', 'value': 'estimated_k_indices'},
-                    ],
-                    value=[]
+
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Toggle a bunch"),
+                        dbc.Checklist(
+                            options=[
+                                {'label': 'Middle Latitude A', 'value': 'middle_latitude_a'},
+                                {'label': 'Middle Latitude K-indices', 'value': 'middle_latitude_k_indices'},
+                                {'label': 'High Latitude A', 'value': 'high_latitude_a'},
+                                {'label': 'High Latitude K-indices', 'value': 'high_latitude_k_indices'},
+                                {'label': 'Estimated A', 'value': 'estimated_a'},
+                                {'label': 'Estimated K-indices', 'value': 'estimated_k_indices'},
+                            ],
+                            value=[],
+                            id="checkbox_6",
+                            inputClassName='checkbox_6',
+                            switch=True,
+                        ),
+                    ]
                 ),
             ], style={'padding': '0 15px'}),
+
         ], style={'padding': '15px 0 0 30px', 'display': 'flex', 'justify-content': 'center'}),
 
+
         html.Div([
-            html.Button('Prepare Data', id='main_button',
+            html.Button('Download data', id='main_button',
                         style={'margin': 'auto',
                                'display': 'inline-block',
                                'background-color': 'green',
@@ -285,8 +328,8 @@ app.layout = html.Div(
 
         dbc.Row(
             [
-                dbc.Col(controls, md=6),
-                dbc.Col(dcc.Graph(id="cluster-graph"), md=6),
+                dbc.Col(controls, md=4),
+                dbc.Col(dcc.Graph(id="cluster-graph"), md=8),
             ],
             align="center",
         ),

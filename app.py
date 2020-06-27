@@ -307,9 +307,9 @@ controls = dbc.Card(
 sought_info_px = ['pcn','pcs']
 df_express = model.mainFunction('2015-01-01',
                        '00:00:00',
-                       '2015-01-31',
+                       '2015-12-31',
                        '23:59:00',
-                       '1D',
+                       '12H',
                        sought_info_px)
 df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
 fig = px.line(df_melt, x="datetime", y='value', color='variable')

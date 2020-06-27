@@ -326,7 +326,7 @@ app.layout = html.Div(
     [
         html.Div([
             html.H1(children = 'Индексы геомагнитной активности', style = {'margin-bottom': '10px'}),
-        ], style = {'text-align': 'center', 'height': '8vh'}),
+        ], style = {'text-align': 'center', 'min-height': '10%'}),
 
         html.Div([
             dbc.Row(
@@ -340,12 +340,13 @@ app.layout = html.Div(
                 ],
                 align="center",
             ),
-        ], style={'height': '90vh'}),
+        ], style={'min-height': '90%'}),
 
 
     ],
     style={
-        'padding': '20px 0 0 0',
+        'padding': '10px 0 0 0',
+        'height': '100%',
         # 'width': sizes['container-div'],
         'margin': 'auto'
     }

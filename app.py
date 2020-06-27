@@ -304,8 +304,16 @@ controls = dbc.Card(
 )
 
 
-df_express = px.data.iris() # iris is a pandas DataFrame
-fig = px.scatter(df_express, x="sepal_width", y="sepal_length")
+# df_express = px.data.iris() # iris is a pandas DataFrame
+
+
+df_express = model.mainFunction('2015-01-01',
+                       '00:00:00',
+                       '2015-01-02',
+                       '23:59:00',
+                       '1H',
+                       ['ae','au','al','ao'])
+fig = px.scatter(df_express, x="datetime", y="ae")
 
 
 

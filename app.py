@@ -307,7 +307,7 @@ controls = dbc.Card(
 sought_info_px = ['pcn','pcs']
 df_express = model.mainFunction('2015-01-01',
                        '00:00:00',
-                       '2015-12-31',
+                       '2015-05-31',
                        '23:59:00',
                        '12H',
                        sought_info_px)
@@ -331,7 +331,7 @@ app.layout = html.Div(
                     #     dbc.Button("Скачать данные", color="success", className="mr-1",),
                     # ], style={'text-align': 'center', 'margin-top': '15px'}),md=9),
 
-                    dbc.Col(dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph"), md=9),
+                    dbc.Col(html.Div(id="div_for_graph"), md=9),
                 ],
                 align="center",
             ),
@@ -385,7 +385,8 @@ def choose_all(n_clicks):
 
 # функция для построения графика
 @app.callback(
-    Output("index_graph", "figure"),
+    # Output("index_graph", "figure"),
+    Output("div_for_graph", "children"),
     [Input('my-date-picker-range', 'start_date'),
      Input('my-date-picker-range', 'end_date'),
      Input('start_time', 'value'),
@@ -407,7 +408,8 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
         df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
         df_melt = df.melt(id_vars='datetime', value_vars=sought_info)
         fig = px.line(df_melt, x="datetime", y='value', color='variable')
-        return fig
+        grph = dcc.Graph(figure=fig, style={'height': '100%'}, id="index_graph")
+        return grph
 
 
 

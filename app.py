@@ -312,9 +312,9 @@ controls = dbc.Card(
 #
 # df_express = model.mainFunction('2015-01-01',
 #                        '00:00:00',
-#                        '2015-01-28',
+#                        '2015-01-31',
 #                        '23:59:00',
-#                        '1H',
+#                        '1D',
 #                        sought_info_px)
 # df_melt = df_express.melt(id_vars='datetime', value_vars=sought_info_px)
 # fig = px.line(df_melt, x="datetime", y='value', color='variable')
@@ -408,16 +408,11 @@ def update_output(date_begin, date_end, time_begin, time_end, time_step,
                   sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
 
-    if date_begin is not None or date_end is not None:
-        if time_step is not None:
-            if len(sought_info) > 0:
-                try:
-                    df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
-                    df_melt = df.melt(id_vars='datetime', value_vars=sought_info)
-                    fig = px.line(df_melt, x="datetime", y='value', color='variable')
-                    return fig
-                except MemoryError:
-                    return 0
+    if date_begin is not None and date_end is not None and time_step is not None and len(sought_info) > 0:
+        df = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
+        df_melt = df.melt(id_vars='datetime', value_vars=sought_info)
+        fig = px.line(df_melt, x="datetime", y='value', color='variable')
+        return fig
 
 
 

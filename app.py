@@ -2,34 +2,22 @@ from datetime import datetime as dt
 from datetime import timezone
 import os
 import flask
-from flask import Flask, send_from_directory
-import xlsxwriter
+from flask import Flask
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-import io
 import pandas as pd
-import plotly.graph_objs as go
 import plotly.express as px
 import model
-# import temp_with_postgre
-import openpyxl
 
 
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
-# app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 external_stylesheets=['https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
-
 server = Flask(__name__)
 app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
-
-# app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
-
 app.title = ('Indices')
-
 
 
 controls = dbc.Card(
@@ -330,9 +318,6 @@ app.layout = html.Div(
 
 
 
-
-
-
 # функция для выбора всех индексов
 @app.callback(
     [Output("checkbox_1", "value"),
@@ -435,7 +420,6 @@ def update_output(n_clicks, n_clicks2, date_begin, date_end, time_begin, time_en
             try:
                 b = model.mainFunction(str(date_begin), str(time_begin)+':00', str(date_end), str(time_end)+':00', str(time_step), sought_info)
                 del b['datetime']
-
                 now=dt.now(timezone.utc)
                 now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
                 relative_filename = os.path.join(

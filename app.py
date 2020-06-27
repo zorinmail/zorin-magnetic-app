@@ -313,7 +313,7 @@ df_express = model.mainFunction('2015-01-01',
                        '23:59:00',
                        '1H',
                        ['ae','au','al','ao'])
-fig = px.scatter(df_express, x="datetime", y="ae")
+fig = px.line(df_express, x="datetime", y="ae")
 
 
 

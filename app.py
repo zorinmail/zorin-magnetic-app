@@ -20,7 +20,7 @@ import openpyxl
 
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-external_stylesheets=[dbc.themes.BOOTSTRAP]
+external_stylesheets=['https://codepen.io/chriddyp/pen/brPBPO.css', dbc.themes.BOOTSTRAP]
 
 sizes = {
     'container-div': '800px',
@@ -291,7 +291,7 @@ controls = dbc.Card(
 
         html.Div([
             dbc.Button("Скачать данные", color="success", className="mr-1", id='main_button'),
-        ], style={'margin-top': '15px'}),
+        ], style={'text-align': 'center', 'margin-top': '15px'}),
 
         html.Div(id='output_div', style={'text-align': 'center', 'margin-top': '5px'}),
 
@@ -325,7 +325,7 @@ controls = dbc.Card(
 app.layout = html.Div(
     [
         html.Div([
-            html.H1(children = 'Индексы геомагнитной активности (в разработке)', style = {'margin-bottom': '10px'}),
+            html.H1(children = 'Индексы геомагнитной активности', style = {'margin-bottom': '10px'}),
         ], style = {'text-align': 'center', 'height': '8vh'}),
 
         html.Div([
@@ -336,7 +336,7 @@ app.layout = html.Div(
                 ],
                 align="center",
             ),
-        ], style={'height': '92vh'}),
+        ], style={'height': '90vh'}),
 
 
     ],

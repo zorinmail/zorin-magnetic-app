@@ -25,7 +25,7 @@ class connectionInfo:
             self._pg_pass = 'admin'
             self._pg_host = 'localhost'
             self._pg_port = '5432'
-            self._pg_dbname = ''
+            self._pg_dbname = 'indices_local'
         self.connection_string = ('postgresql+psycopg2://' +
                                    self._pg_user + ':' +
                                    self._pg_pass + '@' +

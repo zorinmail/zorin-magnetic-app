@@ -366,7 +366,7 @@ def choose_all(n_clicks):
      Input('checkbox_6', 'value')
      ],
 )
-def update_output(date_begin, date_end, time_begin, time_end, time_step,
+def draw_graph(date_begin, date_end, time_begin, time_end, time_step,
                   sought_info_1, sought_info_2, sought_info_3, sought_info_4, sought_info_5, sought_info_6):
     sought_info = sought_info_1 + sought_info_2 + sought_info_3 + sought_info_4 + sought_info_5 + sought_info_6
 

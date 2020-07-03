@@ -122,7 +122,7 @@ def change_txts_to_df(path_to_initial, file_type):
     elif file_type == 'SME':
         data = pd.read_csv(path_to_initial,
                            skiprows=(0,),
-                           delim_whitespace=True,
+                           delimiter=',',
                            names = initial_info._headers_for_csv[file_type],
                            converters={'DATETIME': str,
                                        # 'sme': float
@@ -262,62 +262,95 @@ def fill_db_from_files(time_step):
         # Create a table with the appropriate Columns
         Table('indices_local', metadata,
               Column('datetime', DateTime(timezone=False), primary_key=True, nullable=False),
-              Column('al_ie', String),
-              Column('au_ie', String),
-              Column('ae_ie', String),
-              Column('ae', String),
-              Column('au', String),
-              Column('al', String),
-              Column('ao', String),
-              Column('pcn', String),
-              Column('pcs', String),
-              Column('sme', String),
-              Column('asy_d', String),
-              Column('asy_h', String),
-              Column('sym_d', String),
-              Column('sym_h', String),
-              Column('middle_latitude_a', String),
-              Column('middle_latitude_k_indices', String),
-              Column('high_latitude_a', String),
-              Column('high_latitude_k_indices', String),
-              Column('estimated_a', String),
-              Column('estimated_k_indices', String),
+              Column('al_ie', Float),
+              Column('au_ie', Float),
+              Column('ae_ie', Float),
+              Column('ae', Float),
+              Column('au', Float),
+              Column('al', Float),
+              Column('ao', Float),
+              Column('pcn', Float),
+              Column('pcs', Float),
+              Column('sme', Float),
+              Column('asy_d', Float),
+              Column('asy_h', Float),
+              Column('sym_d', Float),
+              Column('sym_h', Float),
+              Column('middle_latitude_a', Float),
+              Column('middle_latitude_k_indices', Integer),
+              Column('high_latitude_a', Float),
+              Column('high_latitude_k_indices', Integer),
+              Column('estimated_a', Float),
+              Column('estimated_k_indices', Integer),
               )
         # Implement the creation
         metadata.create_all()
 
-    df_pcnpcs = change_txts_to_df(initial_info._file_names['pcnpcs'], 'pcnpcs')
-    df_pcnpcs = time_selection(df_pcnpcs, time_step)
-    df_pcnpcs = df_pcnpcs.interpolate(method='linear', limit_direction='forward', axis=0)
-    df_pcnpcs.to_sql('indices_local', engine, if_exists='append', index=False)
-    del df_pcnpcs
+    for i in range(1,12):
 
-    df_sme = change_txts_to_df(initial_info._file_names['SME'], 'SME')
-    df_sme.to_sql('indices_local', engine, if_exists='append', index=False)
-    del df_sme
+        df_pcnpcs = change_txts_to_df(initial_info._file_names['pcnpcs'], 'pcnpcs')
+        df_pcnpcs = df_pcnpcs[df_pcnpcs['datetime'].dt.month == i]
+        df_pcnpcs = time_selection(df_pcnpcs, time_step)
+        df_pcnpcs = df_pcnpcs.ffill()
+        df_pcnpcs.index.name = None
+        df_sym_h = change_txts_to_df(initial_info._file_names['SYM_H'], 'SYM_H')
+        df_sym_h = df_sym_h[df_sym_h['datetime'].dt.month == i]
+        df_sym_h = time_selection(df_sym_h, time_step)
+        df_sym_h = df_sym_h.ffill()
+        df_sym_h.index.name = None
+        df = pd.merge(df_pcnpcs, df_sym_h, on='datetime')
+        del df_pcnpcs
+        del df_sym_h
 
-    df_sym_h = change_txts_to_df(initial_info._file_names['SYM_H'], 'SYM_H')
-    df_sym_h.to_sql('indices_local', engine, if_exists='replace', index=False)
-    del df_sym_h
+        df_sme = change_txts_to_df(initial_info._file_names['SME'], 'SME')
+        df_sme = df_sme[df_sme['datetime'].dt.month == i]
+        df_sme = time_selection(df_sme, time_step)
+        df_sme = df_sme.ffill()
+        df_sme.index.name = None
+        df = pd.merge(df, df_sme, on='datetime')
+        del df_sme
 
-    df_aualaoae = change_txts_to_df(initial_info._file_names['AUALAOAE'], 'AUALAOAE')
-    df_aualaoae.to_sql('indices_local', engine, if_exists='replace', index=False)
-    del df_aualaoae
 
-    df_alauae_ie = change_txts_to_df(initial_info._file_names['IE'], 'IE')
-    df_alauae_ie.to_sql('indices_local', engine, if_exists='replace', index=False)
-    del df_alauae_ie
+        df_aualaoae = change_txts_to_df(initial_info._file_names['AUALAOAE'], 'AUALAOAE')
+        df_aualaoae = df_aualaoae[df_aualaoae['datetime'].dt.month == i]
+        df_aualaoae = time_selection(df_aualaoae, time_step)
+        df_aualaoae = df_aualaoae.ffill()
+        df_aualaoae.index.name = None
+        df = pd.merge(df, df_aualaoae, on='datetime')
+        del df_aualaoae
 
-    df_dgd = change_txts_to_df(initial_info._file_names['DGD'], 'DGD')
-    df_dgd.to_sql('indices_local', engine, if_exists='replace', index=False)
-    del df_dgd
 
-    # df_sme.to_sql('indices_local', engine, if_exists='append')
-    # df_sym_h.to_sql('indices_local', engine, if_exists='append')
+        df_alauae_ie = change_txts_to_df(initial_info._file_names['IE'], 'IE')
+        df_alauae_ie = df_alauae_ie[df_alauae_ie['datetime'].dt.month == i]
+        df_alauae_ie = time_selection(df_alauae_ie, time_step)
+        df_alauae_ie = df_alauae_ie.ffill()
+        df_alauae_ie.index.name = None
+        df = pd.merge(df, df_alauae_ie, on='datetime')
+        del df_alauae_ie
+
+
+        df_dgd = change_txts_to_df(initial_info._file_names['DGD'], 'DGD')
+        df_dgd['middle_latitude_a'] = df_dgd['middle_latitude_a'].astype(int)
+        df_dgd['middle_latitude_k_indices'] = df_dgd['middle_latitude_k_indices'].astype(int)
+        df_dgd['high_latitude_a'] = df_dgd['high_latitude_a'].astype(int)
+        df_dgd['high_latitude_k_indices'] = df_dgd['high_latitude_k_indices'].astype(int)
+        df_dgd['estimated_a'] = df_dgd['estimated_a'].astype(int)
+        df_dgd['estimated_k_indices'] = df_dgd['estimated_k_indices'].astype(int)
+        df_dgd = df_dgd[df_dgd['datetime'].dt.month == i]
+        df_dgd.loc[df_dgd['middle_latitude_k_indices'] > 9 or df_dgd['middle_latitude_k_indices'] < (-1), 'middle_latitude_k_indices'] = (-1)
+        df_dgd.loc[df_dgd['high_latitude_k_indices'] > 9 or df_dgd['high_latitude_k_indices'] < (-1), 'high_latitude_k_indices'] = (-1)
+        df_dgd.loc[df_dgd['estimated_k_indices'] > 9 or df_dgd['estimated_k_indices'] < (-1), 'estimated_k_indices'] = (-1)
+        df_dgd = time_selection(df_dgd, time_step)
+        df_dgd = df_dgd.ffill()
+        df_dgd.index.name = None
+        df = pd.merge(df, df_dgd, on='datetime')
+        del df_dgd
+
+        df.to_sql('indices_local', engine, if_exists='append', index=False)
+        del df
+
+        print(i)
 
 
 
 fill_db_from_files('10S')
-
-
-a=0
